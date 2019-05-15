@@ -1,9 +1,9 @@
 <?php
 
-namespace Dorcas\ModulesSales;
+namespace Dorcas\ModulesAssistant;
 use Illuminate\Support\ServiceProvider;
 
-class ModulesSalesServiceProvider extends ServiceProvider {
+class ModulesAssistantServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{

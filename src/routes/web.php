@@ -1,7 +1,10 @@
 <?php
 
-Route::group(['namespace' => 'Dorcas\ModulesAssistant\Http\Controllers', 'middleware' => ['web']], function() {
-    Route::get('sales', 'ModulesAssistantController@index')->name('sales');
+Route::group(['namespace' => 'Dorcas\ModulesAssistant\Http\Controllers', 'middleware' => ['web','auth'], 'prefix' => 'mas'], function() {
+    Route::get('assistant-main', 'ModulesAssistantController@index')->name('assistant-main');
+    Route::get('assistant-generate/{module}/{url}', 'ModulesAssistantController@generate');
+
+    Route::get('generate-docs/{tag}', 'ModulesAssistantController@generateDocs');
 });
 
 
