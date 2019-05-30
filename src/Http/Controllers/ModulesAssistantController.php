@@ -46,10 +46,8 @@ class ModulesAssistantController extends Controller {
     public function generate(Request $request, string $module = "", string $url = "")
     {
         $page_info = false;
-        if (!empty($url)) {
-            $this->data['page_info'] = $this->getPageInfo($url);
+        $this->data['page_info'] = $this->getPageInfo($url);
             $page_info = true;
-        }
         $pageinfo = $this->data['page_info'];
 
         switch ($module) {
@@ -64,9 +62,9 @@ class ModulesAssistantController extends Controller {
 
         #get docs
         $docs_module = $this->generateDocs($module);
-        $docs_url = $this->generateDocs($url);
+        //$docs_url = $this->generateDocs($url);
 
-        $docs = $this->generateDocs("digitize");
+        $docs = $this->generateDocs($this->data['page_info']["docs_tag"]);
 
         $this->data['assistant_docs']['docs_header'] = $docs["header"];
         $this->data['assistant_docs']['docs_body'] = $docs["body"];
@@ -79,14 +77,14 @@ class ModulesAssistantController extends Controller {
 
     public function getPageInfo(string $url)
     {
-        $info = ["title" => "", "description" => ""];
+        $info = ["title" => "", "description" => "", "docs_tag" => ""];
 
         switch ($url) {
             case 'customers-main':
             $info = ["title" => "Main Page", "description" => "You can choose how to manage your customers", "docs_tag" => 1];
                 break;
             case 'customers-customers':
-            $info = ["title" => "Customers List section", "description" => "It displays a list of all your customers"];
+            $info = ["title" => "Customers List section", "description" => "It displays a list of all your customers", "docs_tag" => 1];
                 break;
             
         }
@@ -121,7 +119,7 @@ class ModulesAssistantController extends Controller {
         $footer = 'Still can\'t find what you are looking for? Check our full documentation website OR use the help section';
         $body = [];
 
-        if (!empty($tag) ) { //&& is_numeric($tag)
+        if (!empty($tag) && is_numeric($tag)) { //&& is_numeric($tag)
             $docs_url = 'https://blog.smartbusiness.com.ng/wp-json/wp/v2/posts?search='.$tag;
             //$docs_url = 'http://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
             $client = new \GuzzleHttp\Client();
