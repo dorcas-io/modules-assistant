@@ -70,7 +70,7 @@
                         </h5>
                       </div>
                       <div :id="'collapse' + doc.post_id" class="collapse" :class="index ? '' : 'show'" :aria-labelledby="'heading' + doc.post_id" data-parent="#assistantdocs">
-                        <div class="card-body" v-html="doc.post_excerpt">
+                        <div class="card-body" v-html="doc.post_body">
                         </div>
                       </div>
                     </div>
@@ -115,7 +115,7 @@
                                                       <input type="file" name="attachment" v-on:change="helpAttachmentCheck" id="attachment" ref="attachment" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,image/*" class="custom-file-input">
                                                       <label class="custom-file-label">Choose Attachment</label>
                                                   </div>
-                                                  <small>NOT Compulsory. Any attachment must not exceed 100KB in size</small>
+                                                  <small id="assistant_help_file_message">NOT Compulsory. Any attachment must not exceed 100KB in size</small>
                                               </div>
                                           </div>
                                       </div>
@@ -123,7 +123,7 @@
                                   <div class="row">
                                       <div class="input-field col s12">
                                           <input type="hidden" name="area" id="area" v-model="helpMessage.area">
-                                          <button class="btn btn-outline-primary btn-block" type="submit" name="action">Send Request</button>
+                                          <button id="assistant_help_submit" class="btn btn-outline-primary btn-block" type="submit" v-on:submit.prevent="helpSendMessage" name="action">Send Request</button>
                                       </div>
                                   </div>
                               </form>

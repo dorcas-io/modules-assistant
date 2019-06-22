@@ -11,6 +11,9 @@ use Hostville\Dorcas\Sdk;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 
+use App\Mail\HelpEmail;
+use Illuminate\Support\Facades\Mail;
+
 class ModulesAssistantController extends Controller {
 
     public function __construct()
@@ -55,44 +58,57 @@ class ModulesAssistantController extends Controller {
         switch ($module) {
             case 'dashboard':
                 $this->data['header_message']['message'] = '<strong>Welcome to Dorcas Hub Dashboard</strong>. It contains vital statistics about your business operations as well as quick shortcuts to other functions';
+                $pageinfo["docs_tag"] = 35;
                 break;
             case 'mcu':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>!';
+                $pageinfo["docs_tag"] = 13;
                 $pageinfo["video"] = "https://www.youtube.com/embed/zbNnbKtkVbM";
                 break;
             case 'mpe':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-people.title', 'People').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-people.title', 'Customers').' People</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-people.title', 'People').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-people.title', 'Customers').' People</strong>!';
+                $pageinfo["docs_tag"] = 21;
                 break;
             case 'mli':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-library.title', 'Library').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-library.title', 'Library').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-library.title', 'Library').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-library.title', 'Library').' Module</strong>!';
+                $pageinfo["docs_tag"] = 28;
                 break;
             case 'map':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>!';
+                $pageinfo["docs_tag"] = 30;
                 break;
             case 'mit':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>!';
+                $pageinfo["docs_tag"] = 27;
                 break;
             case 'mpa':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>!';
                 break;
+                $pageinfo["docs_tag"] = 36;
             case 'mps':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>!';
                 break;
+                $pageinfo["docs_tag"] = 37;
             case 'mpp':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>!';
+                $pageinfo["docs_tag"] = 38;
                 break;
             case 'mec':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>!';
+                $pageinfo["docs_tag"] = 39;
                 break;
             case 'mfn':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>!';
+                $pageinfo["docs_tag"] = 40;
                 break;
             case 'mmp':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>!';
+                $pageinfo["docs_tag"] = 41;
                 break;
             
             default:
             $this->data['header_message']['message'] = 'Thanks for using the <strong>Dorcas Hub</strong>!';
+                $pageinfo["docs_tag"] = 42;
                 break;
         }
 
@@ -100,10 +116,10 @@ class ModulesAssistantController extends Controller {
         $this->data['assistant_assistant']['assistant_1_body'] = $this->generateOverviewVideo($pageinfo["video"], $pageinfo["overview_msg"]);
 
         #get docs
-        $docs_module = $this->generateDocs($module);
+        //$docs_module = $this->generateDocs($module);
         //$docs_url = $this->generateDocs($url);
 
-        $docs = $this->generateDocs($pageinfo["docs_tag"]);
+        $docs = $this->generateDocs($pageinfo["docs_tag"], $pageinfo["title"]);
 
         $this->data['assistant_docs']['docs_header'] = $docs["header"];
         $this->data['assistant_docs']['docs_body'] = $docs["body"];
@@ -122,6 +138,12 @@ class ModulesAssistantController extends Controller {
         $info = ["title" => "", "description" => "", "docs_tag" => "", 'video' => 'https://www.youtube.com/embed/zbNnbKtkVbM', 'overview_msg' => 'Watch the video below to get started!'];
 
         switch ($url) {
+
+            case 'customers-main':
+            $info["title"] = "main page";
+            $info["description"] = "You can choose how to manage your customers";
+            $info["docs_tag"] = 1;
+                break;
 
             case 'customers-main':
             $info["title"] = "main page";
@@ -167,7 +189,7 @@ class ModulesAssistantController extends Controller {
 
             case 'app-store-main':
             $info["title"] = "main page";
-            $info["description"] = "It features great applications the offer more comprehensive functionality to improve a spefific area of your business";
+            $info["description"] = "It features great applications the offer more comprehensive functionality to improve a specific area of your business";
             $info["docs_tag"] = 1;
                 break;
 
@@ -179,7 +201,7 @@ class ModulesAssistantController extends Controller {
 
             case 'service-requests-main':
             $info["title"] = "main page";
-            $info["description"] = "It allows you to manage service requests recieved from other Hub users that may require your professional service(s)";
+            $info["description"] = "It allows you to manage service requests received from other Hub users that may require your professional service(s)";
             $info["docs_tag"] = 1;
                 break;
 
@@ -239,7 +261,7 @@ class ModulesAssistantController extends Controller {
 
             case 'finance-entries':
             $info["title"] = "transactions &amp; entries section";
-            $info["description"] = "Here you can enter your accounting transactions including debits, credits, payables, recievables and more.";
+            $info["description"] = "Here you can enter your accounting transactions including debits, credits, payables, receivables and more.";
             $info["docs_tag"] = 1;
                 break;
 
@@ -290,6 +312,12 @@ class ModulesAssistantController extends Controller {
             $info["description"] = "Beyond departments, you sometimes need to assemble ad-hoc teams of employees, usually on per-projcet basis. You can create and manage teams here";
             $info["docs_tag"] = 1;
                 break;
+
+            default:
+            $info["title"] = "";
+            $info["description"] = "";
+            $info["docs_tag"] = 1;
+                break;
         }
 
         // sales
@@ -299,15 +327,15 @@ class ModulesAssistantController extends Controller {
     }
 
 
-    public function generateDocs(string $tag) {
+    public function generateDocs(string $tag, string $title) {
 
-        $header = 'Find below some documentation related to';
+        $header = 'Find below some documentation related to <strong>' . $title . '</strong>';
         $footer = 'Still can\'t find what you are looking for? Contact us via the Help section';
         $body = [];
 
         if (!empty($tag) && is_numeric($tag)) { //&& is_numeric($tag)
-            $docs_url = 'https://blog.smartbusiness.com.ng/wp-json/wp/v2/posts?search='.$tag;
-            //$docs_url = 'http://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
+            //$docs_url = 'https://blog.smartbusiness.com.ng/wp-json/wp/v2/posts?search='.$tag;
+            $docs_url = 'https://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
             $client = new \GuzzleHttp\Client();
             $request = $client->get($docs_url);
             $response = json_decode($request->getBody()->getContents());
@@ -355,6 +383,104 @@ class ModulesAssistantController extends Controller {
 
     }
 
+    /**
+     * @param Request $request
+     * @param Sdk     $sdk
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function helpSendMessage(Request $request, Sdk $sdk)
+    {
 
+        /*$this->validate($request, [
+            'message' => 'required|string',
+            'attachment' => 'nullable|file|max:6144',
+        ], [
+            'attachment.max' => 'The attachment should not be greater than 6Mb, you can compress the file into an archive.'
+        ]);*/
+        # validate the request
+
+        try {
+
+            $name = $request->input('customer-name', '');
+            $email = $request->input('customer-email', '');
+            $phone = $request->input('customer-phone', '');
+            $message = $request->input('help-message', '');
+            $area = $request->input('help-area', '');
+            $attachment = $request->file('attachment', null);
+
+
+            $partner = null;
+            $user = null;
+            $appUiSettings = [];
+
+            $dorcasUser = $request->user();
+            if (!empty($dorcasUser)) {
+                if (!empty($dorcasUser->partner) && !empty($dorcasUser->partner['data'])) {
+                    $partner = (object) $dorcasUser->partner['data'];
+                    $configuration = (array) $partner->extra_data;
+                    $appUiSettings = $configuration['hubConfig'] ?? [];
+                    $appUiSettings['product_logo'] = !empty($this->partner->logo) ? $this->partner->logo : null;
+                    $user = $dorcasUser;
+                }
+            }
+            
+
+            $subject = ($appUiSettings['product_name'] ?? 'Dorcas Hub') . 'Message from' . $this->user->firstname .' '. $this->user->lastname;
+            $subdomain = null;
+            if (empty($request->session()->get('domain')) && !empty($partner->domain_issuances)) {
+                $domain = $this->partner->domain_issuances['data'][0] ?? null;
+            }
+            if (!empty($domain)) {
+                $subdomain = 'https://' . $this->domain->prefix . '.' . $this->domain->domain['data']['domain'];
+            }
+
+
+            $help_data = array(
+                "name" => $name,
+                "email" => $email,
+                "phone" => $phone,
+                "message" => $message,
+                "user" => $user,
+                "appUiSettings" => $appUiSettings,
+                "partner" => $partner,
+                "subdomain" => $subdomain
+            );
+
+
+            
+            /*Mail::to($request->user())
+            ->queue(new HelpEmail($order));*/
+
+            Mail::send('modules-assistant::help-email', $help_data, function($message) {
+                $message->to('ifeoluwa.olawoye@gmail.com', 'Test Email')->subject('Message from Access Hub');
+                if (!empty($attachment)) {
+                    $message->attach($attachment->getRealPath(),
+                        [
+                            'as' => $attachment->getClientOriginalName(),
+                            'mime' => $attachment->getClientMimeType(),
+                        ]);
+                }
+                $message->from('hello@dorcas.io','Dorcas Hub');
+            });
+
+            /*Mail::to($request->user())
+                ->cc($moreUsers)
+                ->bcc($evenMoreUsers)
+                ->send(new OrderShipped($order));*/
+
+            /*Mail::to($request->user())
+                ->cc($moreUsers)
+                ->bcc($evenMoreUsers)
+                ->queue(new OrderShipped($order));*/
+
+
+        } catch (\Exception $e) {
+            $response = "Error". $e->getMessage();
+        }
+
+        $response = "Success";
+        return $response;
+    }
 
 }
