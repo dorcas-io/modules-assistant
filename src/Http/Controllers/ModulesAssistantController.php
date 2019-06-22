@@ -23,10 +23,10 @@ class ModulesAssistantController extends Controller {
         ];*/
         $this->data = [
             'header_message' => ['message' => '', 'alert' => 'alert-primary'],
-            'assistant_assistant' => ['assistant_1_title' => 'Overview', 'assistant_1_body' => '', 'assistant_2_title' => '', 'assistant_2_body' => ''],
+            'assistant_assistant' => ['assistant_1_title' => 'Overview', 'assistant_1_body' => '', 'assistant_2_title' => 'Actions', 'assistant_2_body' => ''],
             'assistant_docs' => ['docs_header' => '', 'docs_main' => [], 'docs_footer' => ''],
-            'assistant_help' => ['help_1_title' => '', 'help_1_body' => '', 'help_2_title' => '', 'help_2_body' => ''],
-            'page_data' => []
+            'assistant_help' => ['help_1_title' => 'Send Us Message', 'help_1_body' => '', 'help_2_title' => 'Contact Centre', 'help_2_body' => ''],
+            'page_info' => []
         ];
     }
 
@@ -45,14 +45,50 @@ class ModulesAssistantController extends Controller {
      */
     public function generate(Request $request, string $module = "", string $url = "")
     {
-        $page_info = false;
         $this->data['page_info'] = $this->getPageInfo($url);
-            $page_info = true;
         $pageinfo = $this->data['page_info'];
 
+        $page_info = !empty($pageinfo) && !empty($pageinfo["title"]) ? true : false;
+
+        $overviewVideo = "https://www.youtube.com/embed/zbNnbKtkVbM";
+
         switch ($module) {
+            case 'dashboard':
+                $this->data['header_message']['message'] = '<strong>Welcome to Dorcas Hub Dashboard</strong>. It contains vital statistics about your business operations as well as quick shortcuts to other functions';
+                break;
             case 'mcu':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-customers.title').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-customers.title').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>!';
+                $pageinfo["video"] = "https://www.youtube.com/embed/zbNnbKtkVbM";
+                break;
+            case 'mpe':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-people.title', 'People').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-people.title', 'Customers').' People</strong>!';
+                break;
+            case 'mli':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-library.title', 'Library').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-library.title', 'Library').' Module</strong>!';
+                break;
+            case 'map':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>!';
+                break;
+            case 'mit':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>!';
+                break;
+            case 'mpa':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>!';
+                break;
+            case 'mps':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>!';
+                break;
+            case 'mpp':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>!';
+                break;
+            case 'mec':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>!';
+                break;
+            case 'mfn':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>!';
+                break;
+            case 'mmp':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>! ' : 'You are currently using the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>!';
                 break;
             
             default:
@@ -60,16 +96,22 @@ class ModulesAssistantController extends Controller {
                 break;
         }
 
+
+        $this->data['assistant_assistant']['assistant_1_body'] = $this->generateOverviewVideo($pageinfo["video"], $pageinfo["overview_msg"]);
+
         #get docs
         $docs_module = $this->generateDocs($module);
         //$docs_url = $this->generateDocs($url);
 
-        $docs = $this->generateDocs($this->data['page_info']["docs_tag"]);
+        $docs = $this->generateDocs($pageinfo["docs_tag"]);
 
         $this->data['assistant_docs']['docs_header'] = $docs["header"];
         $this->data['assistant_docs']['docs_body'] = $docs["body"];
         $this->data['assistant_docs']['docs_footer'] = $docs["footer"];
 
+        $help_sections = $this->generateHelp($pageinfo);
+        $this->data['assistant_help']['help_1_body'] = $help_sections["section_message"];
+        $this->data['assistant_help']['help_2_body'] = $help_sections["section_contact"];
 
         return response()->json($this->data);
     }
@@ -77,46 +119,190 @@ class ModulesAssistantController extends Controller {
 
     public function getPageInfo(string $url)
     {
-        $info = ["title" => "", "description" => "", "docs_tag" => ""];
+        $info = ["title" => "", "description" => "", "docs_tag" => "", 'video' => 'https://www.youtube.com/embed/zbNnbKtkVbM', 'overview_msg' => 'Watch the video below to get started!'];
 
         switch ($url) {
+
             case 'customers-main':
-            $info = ["title" => "Main Page", "description" => "You can choose how to manage your customers", "docs_tag" => 1];
+            $info["title"] = "main page";
+            $info["description"] = "You can choose how to manage your customers";
+            $info["docs_tag"] = 1;
                 break;
+
             case 'customers-customers':
-            $info = ["title" => "Customers List section", "description" => "It displays a list of all your customers", "docs_tag" => 1];
+            $info["title"] = "customers list section";
+            $info["description"] = "It displays a list of all your customers";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'customers-new':
+            $info["title"] = "new customer section";
+            $info["description"] = "Here you can add details for a new customer";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'customers-custom-fields':
+            $info["title"] = "custom fields section";
+            $info["description"] = "Here you can add custom fields such as <em>customer website, age</em> or other peculiar customer characteristics";
+            $info["docs_tag"] = 1;
+
+                break;
+            case 'customers-groups':
+            $info["title"] = "customer groups section";
+            $info["description"] = "Here you can create special groups to use in categorizing customers such as <em>VIP status, location, age group</em> or other peculiar segments";
+            $info["docs_tag"] = 1;
                 break;
             
+            case 'marketplace-main':
+            $info["title"] = "main page";
+            $info["description"] = "It contains listings individual and businesses <em>such as professionals and vendors</em> from whom you can buy services and products.";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'library-main':
+            $info["title"] = "main page";
+            $info["description"] = "It contains several resources <em>in form of videos, audio and text</em> that will be of immense benefit to your business operations";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'app-store-main':
+            $info["title"] = "main page";
+            $info["description"] = "It features great applications the offer more comprehensive functionality to improve a spefific area of your business";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'integrations-main':
+            $info["title"] = "main page";
+            $info["description"] = "It offer connectivity with existing 3rd party applications and platforms that you may already use";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'service-requests-main':
+            $info["title"] = "main page";
+            $info["description"] = "It allows you to manage service requests recieved from other Hub users that may require your professional service(s)";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'service-profile-main':
+            $info["title"] = "main page";
+            $info["description"] = "It allows you to provide additional details <em>such as credentials, experience &amp; social networks</em> that show your professional competence";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'access-requests-main':
+            $info["title"] = "main page";
+            $info["description"] = "It allows you to request access to the Hub account of another Hub user for the purpose of carrying out a service";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'ecommerce-domains':
+            $info["title"] = "domains section";
+            $info["description"] = "Here you can reserve a Dorcas sub-domain, purchase a new domain name or use an existing one that you own";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'ecommerce-website':
+            $info["title"] = "website section";
+            $info["description"] = "Here you can build a functioning website using a friendly drag-n-drop builder. You can then export the website or publish it automatically with paid hub account";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'ecommerce-emails':
+            $info["title"] = "emails section";
+            $info["description"] = "Having a custom email account <em>such as info@yourdomain.com</em> shows a professional brand. Here you can add and delete email-accounts with a few clicks";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'ecommerce-blog':
+            $info["title"] = "blogs section";
+            $info["description"] = "Blogs are an essential part of marketing &amp; customer support. Setting up a blog and managing articles is a breeze with the Blog Manager";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'ecommerce-adverts':
+            $info["title"] = "adverts section";
+            $info["description"] = "It allows you to market, up-sell and cross-sell additional products to visitors to your website and/or blog";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'ecommerce-store':
+            $info["title"] = "online store section";
+            $info["description"] = "Here you activate and setup a fully functioning online store that automatically displays your products and allows customers to explore and purchase them using your custom online store address";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'finance-accounts':
+            $info["title"] = "accounts &amp; journals section";
+            $info["description"] = "Here you can either use existing <em>credit and debit</em> accounts and sub-accounts for categorizing your financial transactions or create custom ones in a way that better suits your business practice.";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'finance-entries':
+            $info["title"] = "transactions &amp; entries section";
+            $info["description"] = "Here you can enter your accounting transactions including debits, credits, payables, recievables and more.";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'finance-reports':
+            $info["title"] = "reports section";
+            $info["description"] = "Here you can generate accounting statements and reports such as balance sheet";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'library-videos':
+            $info["title"] = "videos section";
+            $info["description"] = "Here you can explore several informational and learning videos accross multiple categories and economic sectors";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'marketplace-services':
+            $info["title"] = "professional services section";
+            $info["description"] = "This includes a listing of different services offered by professionals, consultants and other service providers in financial, legal, technology and other fields";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'marketplace-products':
+            $info["title"] = "vendor products section";
+            $info["description"] = "This includes a listing of various physical products offered for sale by small businesses around you from which you can pick and choose and purchase for delivery";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'marketplace-contacts-main':
+            $info["title"] = "preferred contacts section";
+            $info["description"] = "This page contains a list of professionals and vendors that you probably want to do business with later on.";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'people-employees':
+            $info["title"] = "employees section";
+            $info["description"] = "This page contains a list of your employees. From here you can add, edit or delete employees";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'people-departments':
+            $info["title"] = "department section";
+            $info["description"] = "Your business operations are probably handled by one or more functional units called departments. You can create and manage departments here";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'people-teams':
+            $info["title"] = "teams section";
+            $info["description"] = "Beyond departments, you sometimes need to assemble ad-hoc teams of employees, usually on per-projcet basis. You can create and manage teams here";
+            $info["docs_tag"] = 1;
+                break;
         }
 
+        // sales
+        // settings
+
         return $info;
-    }
-
-
-    public function getPageComponents(string $url) {
-
-        $components = [
-            'customers-main' => ['video' => 'https://youtu.be/zbNnbKtkVbM'],
-            'customers-customers' => ['video' => 'https://youtu.be/zbNnbKtkVbM']
-        ];
-
-        return !empty($components[$url]) ? $components[$url] : [];
-
-
-    }
-
-
-    public function generateAssistant(string $url) {
-
-        
-
     }
 
 
     public function generateDocs(string $tag) {
 
         $header = 'Find below some documentation related to';
-        $footer = 'Still can\'t find what you are looking for? Check our full documentation website OR use the help section';
+        $footer = 'Still can\'t find what you are looking for? Contact us via the Help section';
         $body = [];
 
         if (!empty($tag) && is_numeric($tag)) { //&& is_numeric($tag)
@@ -144,13 +330,30 @@ class ModulesAssistantController extends Controller {
     }
 
 
-    public function generateHelp(string $url) {
+    public function generateHelp(array $pageinfo) {
+        $help_sections = array("section_message" => "", "section_contact" => "");
 
-        
+        /*$header_text = "If you have having problems with the <strong>". $pageinfo["title"] . "</strong> or something else, please fill the form below to send us a message and we&apos;'' reply as quickly as we can";
+        $help_sections["section_message"] =  '
+            <p>'.$header_text.'</p>
+        ';*/
 
+        $help_sections["section_message"] = $pageinfo["title"];
+
+        return $help_sections;
     }
 
 
+    public function generateOverviewVideo(string $video_url, string $header_text) {
+
+        return '
+            <p>'.$header_text.'</p>
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="'.$video_url.'" id="assistant-overview-video"  allowscriptaccess="always" allow="autoplay"></iframe>
+            </div>
+        ';
+
+    }
 
 
 
