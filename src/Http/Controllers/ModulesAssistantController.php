@@ -105,6 +105,12 @@ class ModulesAssistantController extends Controller {
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>!';
                 $pageinfo["docs_tag"] = 41;
                 break;
+            case 'msl':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>!';
+                break;
+            case 'mse':
+                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>!';
+                break;
             
             default:
             $this->data['header_message']['message'] = 'Thanks for using the <strong>Dorcas Hub</strong>!';
@@ -310,6 +316,48 @@ class ModulesAssistantController extends Controller {
             case 'people-teams':
             $info["title"] = "teams section";
             $info["description"] = "Beyond departments, you sometimes need to assemble ad-hoc teams of employees, usually on per-projcet basis. You can create and manage teams here";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'settings-personal':
+            $info["title"] = "personal section";
+            $info["description"] = "Here you can make changes to your personal/bio data";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'settings-business':
+            $info["title"] = "business section";
+            $info["description"] = "Here you can make changes to your business information such as contact details and more";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'settings-billing':
+            $info["title"] = "billing section";
+            $info["description"] = "Here you can make changes to your billing preferences";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'settings-security':
+            $info["title"] = "security section";
+            $info["description"] = "Here you can make changes to your security preferences <em>such as login password</em>";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'settings-customization':
+            $info["title"] = "personal section";
+            $info["description"] = "Here you can change the appearance of your account <em>such as brand logo</em>";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'settings-banking':
+            $info["title"] = "banking section";
+            $info["description"] = "Here you can specify your bank account information";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'settings-access-grants':
+            $info["title"] = "access grants section";
+            $info["description"] = "Here you can approve or reject request from marketplace professionals to access your account";
             $info["docs_tag"] = 1;
                 break;
 
