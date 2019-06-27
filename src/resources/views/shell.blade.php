@@ -113,7 +113,7 @@
                                                   <div class="form-label">Any Supporting Document(s)?</div>
                                                   <div class="custom-file">
                                                       <input type="file" name="attachment" v-on:change="helpAttachmentCheck" id="attachment" ref="attachment" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,image/*" class="custom-file-input">
-                                                      <label class="custom-file-label">Choose Attachment</label>
+                                                      <label id="attachment_label" class="custom-file-label">Choose Attachment</label>
                                                   </div>
                                                   <small id="assistant_help_file_message">NOT Compulsory. Any attachment must not exceed 100KB in size</small>
                                               </div>
