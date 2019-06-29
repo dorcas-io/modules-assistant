@@ -227,24 +227,29 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "domains section";
             $info["description"] = "Here you can reserve a Dorcas sub-domain, purchase a new domain name or use an existing one that you own";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/C8YQXC14rCs';
                 break;
 
             case 'ecommerce-website':
             $info["title"] = "website section";
             $info["description"] = "Here you can build a functioning website using a friendly drag-n-drop builder. You can then export the website or publish it automatically with paid hub account";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/7qV-PjGWfpk';
+            //$info["video"] = 'https://www.youtube.com/embed/';
                 break;
 
             case 'ecommerce-emails':
             $info["title"] = "emails section";
             $info["description"] = "Having a custom email account <em>such as info@yourdomain.com</em> shows a professional brand. Here you can add and delete email-accounts with a few clicks";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/4ZcjuKuKSxA';
                 break;
 
             case 'ecommerce-blog':
             $info["title"] = "blogs section";
             $info["description"] = "Blogs are an essential part of marketing &amp; customer support. Setting up a blog and managing articles is a breeze with the Blog Manager";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/UYhMgwp66kI';
                 break;
 
             case 'ecommerce-adverts':
@@ -257,6 +262,7 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "online store section";
             $info["description"] = "Here you activate and setup a fully functioning online store that automatically displays your products and allows customers to explore and purchase them using your custom online store address";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/rPtJNU9JTWc';
                 break;
 
             case 'finance-accounts':
@@ -305,54 +311,63 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "employees section";
             $info["description"] = "This page contains a list of your employees. From here you can add, edit or delete employees";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/_UXmaH2HhVg';
                 break;
 
             case 'people-departments':
             $info["title"] = "department section";
             $info["description"] = "Your business operations are probably handled by one or more functional units called departments. You can create and manage departments here";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/WVuVfFEV8H8';
                 break;
 
             case 'people-teams':
             $info["title"] = "teams section";
             $info["description"] = "Beyond departments, you sometimes need to assemble ad-hoc teams of employees, usually on per-projcet basis. You can create and manage teams here";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/yVHi_1pWqUk';
                 break;
 
             case 'settings-personal':
             $info["title"] = "personal section";
             $info["description"] = "Here you can make changes to your personal/bio data";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/NcFVQjg3ySk';
                 break;
 
             case 'settings-business':
             $info["title"] = "business section";
             $info["description"] = "Here you can make changes to your business information such as contact details and more";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/SwNsP2QWY6I';
                 break;
 
             case 'settings-billing':
             $info["title"] = "billing section";
             $info["description"] = "Here you can make changes to your billing preferences";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/qZu_Bcp49fM';
                 break;
 
             case 'settings-security':
             $info["title"] = "security section";
             $info["description"] = "Here you can make changes to your security preferences <em>such as login password</em>";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/LvDoC92e7GI';
                 break;
 
             case 'settings-customization':
             $info["title"] = "personal section";
             $info["description"] = "Here you can change the appearance of your account <em>such as brand logo</em>";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/5Rzb8PbCJ9w';
                 break;
 
             case 'settings-banking':
             $info["title"] = "banking section";
             $info["description"] = "Here you can specify your bank account information";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/dqYgBWxhnLI';
                 break;
 
             case 'settings-access-grants':
