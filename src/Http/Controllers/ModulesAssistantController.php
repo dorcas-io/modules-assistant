@@ -53,17 +53,17 @@ class ModulesAssistantController extends Controller {
 
         $page_info = !empty($pageinfo) && !empty($pageinfo["title"]) ? true : false;
 
-        $overviewVideo = "https://www.youtube.com/embed/zbNnbKtkVbM";
+        $overviewVideo = "https://www.youtube.com/embed/SqBXm0acWNQ";
 
         switch ($module) {
             case 'dashboard':
                 $this->data['header_message']['message'] = '<strong>Welcome to Dorcas Hub Dashboard</strong>. It contains vital statistics about your business operations as well as quick shortcuts to other functions';
                 $pageinfo["docs_tag"] = 35;
+                $pageinfo["video"] = "https://www.youtube.com/embed/SqBXm0acWNQ";
                 break;
             case 'mcu':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>!';
                 $pageinfo["docs_tag"] = 13;
-                $pageinfo["video"] = "https://www.youtube.com/embed/zbNnbKtkVbM";
                 break;
             case 'mpe':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-people.title', 'People').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-people.title', 'Customers').' People</strong>!';
@@ -141,9 +141,27 @@ class ModulesAssistantController extends Controller {
 
     public function getPageInfo(string $url)
     {
-        $info = ["title" => "", "description" => "", "docs_tag" => "", 'video' => 'https://www.youtube.com/embed/zbNnbKtkVbM', 'overview_msg' => 'Watch the video below to get started!'];
+        $info = ["title" => "", "description" => "", "docs_tag" => "", 'video' => 'https://www.youtube.com/embed/SqBXm0acWNQ', 'overview_msg' => 'Watch the video below to get started!'];
 
         switch ($url) {
+
+            case 'setup':
+            $info["title"] = "setup section";
+            $info["description"] = "Here you can setup the Hub for use";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'setup':
+            $info["title"] = "setup section";
+            $info["description"] = "Here you can setup the Hub for use";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'overview':
+            $info["title"] = "overview section";
+            $info["description"] = "It displays a list of available features and what they do";
+            $info["docs_tag"] = 1;
+                break;
 
             case 'customers-main':
             $info["title"] = "main page";
@@ -161,24 +179,28 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "customers list section";
             $info["description"] = "It displays a list of all your customers";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/9B2K8HHz2KI';
                 break;
 
             case 'customers-new':
             $info["title"] = "new customer section";
             $info["description"] = "Here you can add details for a new customer";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/qaw3s5akwfA';
                 break;
 
             case 'customers-custom-fields':
             $info["title"] = "custom fields section";
             $info["description"] = "Here you can add custom fields such as <em>customer website, age</em> or other peculiar customer characteristics";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/JA62outfu1E';
 
                 break;
             case 'customers-groups':
             $info["title"] = "customer groups section";
             $info["description"] = "Here you can create special groups to use in categorizing customers such as <em>VIP status, location, age group</em> or other peculiar segments";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/OdoET1arvV0';
                 break;
             
             case 'marketplace-main':
@@ -326,6 +348,24 @@ class ModulesAssistantController extends Controller {
             $info["description"] = "Beyond departments, you sometimes need to assemble ad-hoc teams of employees, usually on per-projcet basis. You can create and manage teams here";
             $info["docs_tag"] = 1;
             $info["video"] = 'https://www.youtube.com/embed/yVHi_1pWqUk';
+                break;
+
+            case 'sales-categories':
+            $info["title"] = "categories section";
+            $info["description"] = "This allows you to group your products into categories that will help buyers (and you, the business) locate products better on your online store";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'sales-products':
+            $info["title"] = "products section";
+            $info["description"] = "Here you can add, modify and delete the product(s) that your business offers. You can also manage product images and stock levels";
+            $info["docs_tag"] = 1;
+                break;
+
+            case 'sales-orders':
+            $info["title"] = "orders section";
+            $info["description"] = "Here you can create orders and invoices for your customers. All orders generated on your online store will also show up here";
+            $info["docs_tag"] = 1;
                 break;
 
             case 'settings-personal':
@@ -544,6 +584,248 @@ class ModulesAssistantController extends Controller {
 
         $response = "Success";
         return $response;
+    }
+
+    public function getModules(Request $request) {
+
+        $allModules = array();
+
+        $allModules["dashboard"] = array(
+            "name" => "dashboard",
+            "menu_group" => "",
+            "dashboard" => "all",
+            "title" => "Dashboard",
+            "description" => "It contains statistics about your business operations as well as quick shortcuts to other functions",
+            "docs_tag" => 35,
+            "video" => "",
+            "display_image" => "images/overview/dashboard.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-dashboard'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mcu"] = array(
+            "name" => 'modules-customers',
+            "menu_group" => "",
+            "dashboard" => "business",
+            "title" => config('modules-customers.title', 'Customers').' Module',
+            "description" => "Contains management tools to create, edit, categorize and group your esteemed customers",
+            "docs_tag" => 13,
+            "video" => "",
+            "display_image" => "images/overview/mcu.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-customers'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mec"] = array(
+            "name" => 'modules-ecommerce',
+            "menu_group" => "",
+            "dashboard" => "business",
+            "title" => config('modules-ecommerce.title', 'eCommerce').' Module',
+            "description" => "Comes with tools to manage domain names, email accounts, build websites, blogs and setup online stores",
+            "docs_tag" => 39,
+            "video" => "",
+            "display_image" => "images/overview/mec.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-ecommerce'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mpe"] = array(
+            "name" => 'modules-people',
+            "dashboard" => "business",
+            "menu_group" => "Allows you to manage employee data and organize them using departments and teams",
+            "title" => config('modules-people.title', 'People').' Module',
+            "description" => "",
+            "docs_tag" => 21,
+            "video" => "",
+            "display_image" => "images/overview/mpe.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-people'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["msl"] = array(
+            "name" => 'modules-sales',
+            "menu_group" => "",
+            "dashboard" => "business",
+            "title" => config('modules-sales.title', 'Sales').' Module',
+            "description" => "Contains several tools to add, edit and categorize your products as well as invoicing and order management",
+            "docs_tag" => "",
+            "video" => "",
+            "display_image" => "images/overview/msl.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-sales'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mfn"] = array(
+            "name" => 'modules-finance',
+            "menu_group" => "",
+            "dashboard" => "business",
+            "title" => config('modules-finance.title', 'Finance').' Module',
+            "description" => "Contains tools and interfaces for adding, importing and categorizing your accounting entries",
+            "docs_tag" => 40,
+            "video" => "",
+            "display_image" => "images/overview/mfn.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-finance'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mli"] = array(
+            "name" => 'modules-library',
+            "menu_group" => "addons",
+            "dashboard" => "business",
+            "title" => config('modules-library.title', 'Library').' Module',
+            "description" => "Contains a selection of learning resources such as videos on various business topics",
+            "docs_tag" => 28,
+            "video" => "",
+            "display_image" => "images/overview/mli.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-library'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mmp"] = array(
+            "name" => 'modules-marketplace',
+            "menu_group" => "addons",
+            "dashboard" => "business",
+            "title" => config('modules-marketplace.title', 'Marketplace').' Module',
+            "description" => "Discover a pool of service professionals as well as product vendors that are ready to help your business",
+            "docs_tag" => 41,
+            "video" => "",
+            "display_image" => "images/overview/mmp.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-marketplace'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["map"] = array(
+            "name" => 'modules-app-store',
+            "menu_group" => "addons",
+            "dashboard" => "business",
+            "title" => config('modules-app-store.title', 'App Store').' Module',
+            "description" => "Contains apps that when installed, provide additional functionality to your digital operations",
+            "docs_tag" => 30,
+            "video" => "",
+            "display_image" => "images/overview/map.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-app-store'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mit"] = array(
+            "name" => 'modules-integrations',
+            "menu_group" => "addons",
+            "dashboard" => "business",
+            "title" => config('modules-integrations.title', 'Integrations').' Module',
+            "description" => "This allows you to leverage the features of existing 3rd-party platforms",
+            "docs_tag" => 27,
+            "video" => "",
+            "display_image" => "images/overview/mit.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-integrations'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mpa"] = array(
+            "name" => 'modules-access-requests',
+            "menu_group" => "",
+            "dashboard" => "professional",
+            "title" => config('modules-access-requests.title', 'Access Requests').' Module',
+            "description" => "Allows professional service providers to request access to other SME&apos;s Hub accounts",
+            "docs_tag" => 36,
+            "video" => "",
+            "display_image" => "images/overview/mpa.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-access-requests'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mps"] = array(
+            "name" => 'modules-service-requests',
+            "menu_group" => "",
+            "dashboard" => "professional",
+            "title" => config('modules-service-requests.title', 'Service Requests').' Module',
+            "description" => "Allows professional service provicers to receive service requests from other SMEs",
+            "docs_tag" => 37,
+            "video" => "",
+            "display_image" => "images/overview/mps.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-service-requests'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mpp"] = array(
+            "name" => 'modules-service-profile',
+            "menu_group" => "",
+            "dashboard" => "professional",
+            "title" => config('modules-service-profile.title', 'Service Profile').' Module',
+            "description" => "Allows professional service providers to properly showcase their credentials and experience",
+            "docs_tag" => 38,
+            "video" => "",
+            "display_image" => "images/overview/mpp.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-service-profile'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        $allModules["mse"] = array(
+            "name" => 'modules-settings',
+            "menu_group" => "",
+            "dashboard" => "all",
+            "title" => config('modules-settings.title', 'Settings').' Module',
+            "description" => "Several settings that allow you to customize several aspects of your experience with the Hub software",
+            "docs_tag" => "",
+            "video" => "",
+            "display_image" => "images/overview/mse.jpg",
+            "action_list" => $this->getModuleSubMenus($request,'modules-settings'),
+            "action_title" => "",
+            "action_link" => ""
+        );
+
+        return $allModules;
+
+    }
+
+    public function getModuleSubMenus(Request $request, $menu) {
+
+        $submenus = [];
+        $addons = ['modules-library','modules-integrations','modules-app-store','modules-marketplace'];
+        $isAddon = in_array($menu, $addons);
+        if ($isAddon) {
+            $config = 'navigation-menu.addons.sub-menu.' . $menu;
+        } else {
+            $config = 'navigation-menu.' . $menu;
+        }
+        $menuConfig = config($config);
+        $submenuConfig = config($config . '.sub-menu');
+        //$viewMode = $request->session()->get('viewMode', 'business');
+        $overviewSuffix = "?overview_mode=true";
+
+        /*if ($isAddon) {
+            $routea = safe_href_route($menuConfig['route']) ? route($menuConfig['route']) : 'javascript:void(0)';
+            $submenus[] = '<li><a href="' . $routea . '" class="">' . $menuConfig['title'] . '</a></li>';
+        }*/
+
+
+        if ($menuConfig['navbar']) { // && $menuConfig['dashboard'] == $viewMode -  we'll filter in the view
+            if ($menuConfig['clickable']) {
+                $routem = safe_href_route($menuConfig['route']) ? route($menuConfig['route']) : 'javascript:void(0)';
+                $submenus[] = '<li><a href="' . $routem . $overviewSuffix . '" class="">' . $menuConfig['title'] . '</a></li>';
+            }
+            if ( count( $submenuConfig ) > 0 ) {
+                foreach ( $submenuConfig as $key => $value ) {
+                    $route = safe_href_route($value['route']) ? route($value['route']) : 'javascript:void(0)';
+                    if ( empty($value['visibility']) || ( isset($value['visibility']) && $value['visibility']==='show' ) ) {
+                        $submenus[] = '<li><a href="' . $route . $overviewSuffix .  '" class="">' . $value['title'] . '</a></li>';
+                    }
+                }
+            }
+        }
+        return $submenus;
     }
 
 }
