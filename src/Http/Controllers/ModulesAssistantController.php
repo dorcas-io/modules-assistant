@@ -207,24 +207,28 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "main page";
             $info["description"] = "It contains listings individual and businesses <em>such as professionals and vendors</em> from whom you can buy services and products.";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/y3g9lHK7cUU';
                 break;
 
             case 'library-main':
             $info["title"] = "main page";
             $info["description"] = "It contains several resources <em>in form of videos, audio and text</em> that will be of immense benefit to your business operations";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/R5v-m6_at9U';
                 break;
 
             case 'app-store-main':
             $info["title"] = "main page";
             $info["description"] = "It features great applications the offer more comprehensive functionality to improve a specific area of your business";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/37wgw5oMbl0';
                 break;
 
             case 'integrations-main':
             $info["title"] = "main page";
             $info["description"] = "It offer connectivity with existing 3rd party applications and platforms that you may already use";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/7NnHqMiUIHc';
                 break;
 
             case 'service-requests-main':
@@ -257,7 +261,6 @@ class ModulesAssistantController extends Controller {
             $info["description"] = "Here you can build a functioning website using a friendly drag-n-drop builder. You can then export the website or publish it automatically with paid hub account";
             $info["docs_tag"] = 1;
             $info["video"] = 'https://www.youtube.com/embed/7qV-PjGWfpk';
-            //$info["video"] = 'https://www.youtube.com/embed/';
                 break;
 
             case 'ecommerce-emails':
@@ -291,12 +294,14 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "accounts &amp; journals section";
             $info["description"] = "Here you can either use existing <em>credit and debit</em> accounts and sub-accounts for categorizing your financial transactions or create custom ones in a way that better suits your business practice.";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/RrmT6BHkc2Q';
                 break;
 
             case 'finance-entries':
             $info["title"] = "transactions &amp; entries section";
             $info["description"] = "Here you can enter your accounting transactions including debits, credits, payables, receivables and more.";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/bTckQtlkBus';
                 break;
 
             case 'finance-reports':
@@ -315,18 +320,21 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "professional services section";
             $info["description"] = "This includes a listing of different services offered by professionals, consultants and other service providers in financial, legal, technology and other fields";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/y3g9lHK7cUU';
                 break;
 
             case 'marketplace-products':
             $info["title"] = "vendor products section";
             $info["description"] = "This includes a listing of various physical products offered for sale by small businesses around you from which you can pick and choose and purchase for delivery";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/y3g9lHK7cUU';
                 break;
 
             case 'marketplace-contacts-main':
             $info["title"] = "preferred contacts section";
             $info["description"] = "This page contains a list of professionals and vendors that you probably want to do business with later on.";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/y3g9lHK7cUU';
                 break;
 
             case 'people-employees':
@@ -354,18 +362,21 @@ class ModulesAssistantController extends Controller {
             $info["title"] = "categories section";
             $info["description"] = "This allows you to group your products into categories that will help buyers (and you, the business) locate products better on your online store";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/sltC-d21Lyk';
                 break;
 
             case 'sales-products':
             $info["title"] = "products section";
             $info["description"] = "Here you can add, modify and delete the product(s) that your business offers. You can also manage product images and stock levels";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/-r05WFAHXlM';
                 break;
 
             case 'sales-orders':
             $info["title"] = "orders section";
             $info["description"] = "Here you can create orders and invoices for your customers. All orders generated on your online store will also show up here";
             $info["docs_tag"] = 1;
+            $info["video"] = 'https://www.youtube.com/embed/9RCQpbBKkWE';
                 break;
 
             case 'settings-personal':
@@ -550,12 +561,19 @@ class ModulesAssistantController extends Controller {
                 "subdomain" => $subdomain
             );
 
+            $message_st = implode("\n\n", $help_data);
+
+
+             Mail::raw($message_st, function ($message) {
+                $message->to('ifeoluwa.olawoye@gmail.com');
+             });
+
 
             
             /*Mail::to($request->user())
             ->queue(new HelpEmail($order));*/
 
-            Mail::send('modules-assistant::help-email', $help_data, function($message) {
+            /*Mail::send('modules-assistant::help-email', $help_data, function($message) {
                 $message->to('ifeoluwa.olawoye@gmail.com', 'Test Email')->subject('Message from Access Hub');
                 if (!empty($attachment)) {
                     $message->attach($attachment->getRealPath(),
@@ -565,7 +583,7 @@ class ModulesAssistantController extends Controller {
                         ]);
                 }
                 $message->from('hello@dorcas.io','Dorcas Hub');
-            });
+            });*/
 
             /*Mail::to($request->user())
                 ->cc($moreUsers)
@@ -635,9 +653,9 @@ class ModulesAssistantController extends Controller {
         $allModules["mpe"] = array(
             "name" => 'modules-people',
             "dashboard" => "business",
-            "menu_group" => "Allows you to manage employee data and organize them using departments and teams",
+            "menu_group" => "",
             "title" => config('modules-people.title', 'People').' Module',
-            "description" => "",
+            "description" => "Allows you to manage your employees&apos; data and organize them using departments and teams",
             "docs_tag" => 21,
             "video" => "",
             "display_image" => "images/overview/mpe.jpg",
@@ -777,7 +795,7 @@ class ModulesAssistantController extends Controller {
             "menu_group" => "",
             "dashboard" => "all",
             "title" => config('modules-settings.title', 'Settings').' Module',
-            "description" => "Several settings that allow you to customize several aspects of your experience with the Hub software",
+            "description" => "Several settings that allow you to customize several aspects of your experience with the Hub",
             "docs_tag" => "",
             "video" => "",
             "display_image" => "images/overview/mse.jpg",
