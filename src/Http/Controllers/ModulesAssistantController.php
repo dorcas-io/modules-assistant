@@ -59,7 +59,7 @@ class ModulesAssistantController extends Controller {
             case 'dashboard':
                 $this->data['header_message']['message'] = '<strong>Welcome to Dorcas Hub Dashboard</strong>. It contains vital statistics about your business operations as well as quick shortcuts to other functions';
                 $pageinfo["docs_tag"] = 35;
-                $pageinfo["video"] = "https://www.youtube.com/embed/SqBXm0acWNQ";
+                $pageinfo["video"] = "https://www.youtube.com/embed/Ge2Q-XWKdk8";
                 break;
             case 'mcu':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>!';
