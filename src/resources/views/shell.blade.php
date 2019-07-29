@@ -104,7 +104,7 @@
                                       <div class="col s12">
                                           <div class="row">
                                               <div class="form-group col-md-12">
-                                                  <textarea class="form-control" name="message" v-model="helpMessage.message" required></textarea>
+                                                  <textarea class="form-control" id="message"  name="message" v-model="helpMessage.message" required></textarea>
                                                   <label class="form-label" for="message" class="active">Tell us your challenge</label>
                                               </div>
                                           </div>

@@ -412,15 +412,19 @@
                             <tr>
                                 <td class="content-cell">
                                     <p>
-                                        {{ !empty($appUiSettings['product_name']) ? $appUiSettings['product_name'] : 'Hub' }} Help Message from <strong>{{ $user->firstname }} {{ $user->lastname }}</strong>
+                                        {{ !empty($appUiSettings['product_name']) ? $appUiSettings['product_name'] : 'Hub' }} Help Message
                                     </p>
-                                    <p>Message: {{ $message }}</p>
+                                    <p>Name: <strong>{{ $name }}</strong></p>
+                                    <p>Phone: <strong>{{ $phone }}</strong></p>
+                                    <p>Email: <strong>{{ $email }}</strong></p>
+                                    <p>Message: {{ $message_string }}</p>
 
                                     
-                                    <p>Thanks!
-                                        <br>-The {{ !empty($partner) ? $partner->name: 'Dorcas' }} Team
+                                    <!-- <p>
+                                        Thanks!
+                                        <br>The {{ !empty($partner->name) ? $partner->name : 'Dorcas' }} Team
                                         <br><a href="{{ !empty($subdomain) ? $subdomain : url('/') }}">{{ !empty($subdomain) ? $subdomain : url('/') }}</a>
-                                    </p>
+                                    </p> -->
                                     <!-- Sub copy -->
                                     <table class="body-sub">
                                         <tr>
@@ -437,7 +441,7 @@
                 <tr>
                     <td>
                         <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0">
-                            <tr>
+                            <!-- <tr>
                                 <td class="content-cell" align="center">
                                     <p class="sub align-center">
                                         Dorcas is a simple tool for SMEs to manage their business processes.
@@ -452,7 +456,7 @@
                                     </p>
                                     <p class="sub align-center">&copy; 2019 {{ config('app.name') }}. All rights reserved.</p>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </table>
                     </td>
                 </tr>
