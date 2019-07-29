@@ -6,7 +6,7 @@ Route::group(['namespace' => 'Dorcas\ModulesAssistant\Http\Controllers', 'middle
 
     Route::get('generate-docs/{tag}', 'ModulesAssistantController@generateDocs');
 
-    Route::post('/message-send', 'ModulesAssistantController@helpSendMessage');
+    Route::post('message-send', 'ModulesAssistantController@helpSendMessage');
 });
 
 

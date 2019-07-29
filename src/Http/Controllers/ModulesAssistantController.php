@@ -513,15 +513,37 @@ class ModulesAssistantController extends Controller {
             'attachment.max' => 'The attachment should not be greater than 6Mb, you can compress the file into an archive.'
         ]);*/
         # validate the request
-
-        try {
-
-            $name = $request->input('customer-name', '');
+        //mail("ifeoluwa.olawoye@gmail.com", "Testing email", $request->input('help-message', ''));
+             /*$name = $request->input('customer-name', '');
             $email = $request->input('customer-email', '');
             $phone = $request->input('customer-phone', '');
             $message = $request->input('help-message', '');
             $area = $request->input('help-area', '');
             $attachment = $request->file('attachment', null);
+
+            $help_data = array(
+                "name" => $name,
+                "email" => $email,
+                "phone" => $phone,
+                "message" => $message,
+            );
+
+
+            $message_st = implode("\n\n", $help_data);
+
+        Mail::raw($message_st, function ($message) {
+            $subject = "Email Subject";
+                $message->to('ifeoluwa.olawoye@gmail.com');
+                $message->subject($subject);
+             });
+
+        return "Yay";*/
+
+        try {
+            
+            $message = $request->input('help-message', '');
+            $area = $request->input('help-area', '');
+            $help_attachment = $request->file('attachment', null);
 
 
             $partner = null;
@@ -534,73 +556,54 @@ class ModulesAssistantController extends Controller {
                     $partner = (object) $dorcasUser->partner['data'];
                     $configuration = (array) $partner->extra_data;
                     $appUiSettings = $configuration['hubConfig'] ?? [];
-                    $appUiSettings['product_logo'] = !empty($this->partner->logo) ? $this->partner->logo : null;
+                    $appUiSettings['product_logo'] = "";  // Lets use Dorcas' own !empty($partner->logo) ? $partner->logo : null;
                     $user = $dorcasUser;
                 }
             }
             
 
-            $subject = ($appUiSettings['product_name'] ?? 'Dorcas Hub') . 'Message from' . $this->user->firstname .' '. $this->user->lastname;
+            $help_subject = ($appUiSettings['product_name'] ?? 'Dorcas Hub') . ' Message from' . $user->firstname .' '. $user->lastname;
             $subdomain = null;
             if (empty($request->session()->get('domain')) && !empty($partner->domain_issuances)) {
-                $domain = $this->partner->domain_issuances['data'][0] ?? null;
+                $domain = $partner->domain_issuances['data'][0] ?? null;
             }
             if (!empty($domain)) {
-                $subdomain = 'https://' . $this->domain->prefix . '.' . $this->domain->domain['data']['domain'];
+                $subdomain = 'https://' . $domain["prefix"] . '.' . $domain["domain"]["data"]['domain'];
             }
 
-
             $help_data = array(
-                "name" => $name,
-                "email" => $email,
-                "phone" => $phone,
-                "message" => $message,
+                "name" => $user->firstname .' '. $user->lastname,
+                "email" => $user->email,
+                "phone" => $user->phone,
+                "message_string" => $message,
                 "user" => $user,
-                "appUiSettings" => $appUiSettings,
                 "partner" => $partner,
-                "subdomain" => $subdomain
+                "appUiSettings" => $appUiSettings,
+                "Partner Name" => $partner->name,
+                "Parter Address" => $subdomain
             );
 
-            $message_st = implode("\n\n", $help_data);
+            $company = $request->user()->company(true, true);
 
-
-             Mail::raw($message_st, function ($message) {
-                $message->to('ifeoluwa.olawoye@gmail.com');
-             });
-
-
-            
-            /*Mail::to($request->user())
-            ->queue(new HelpEmail($order));*/
-
-            /*Mail::send('modules-assistant::help-email', $help_data, function($message) {
-                $message->to('ifeoluwa.olawoye@gmail.com', 'Test Email')->subject('Message from Access Hub');
-                if (!empty($attachment)) {
-                    $message->attach($attachment->getRealPath(),
+            Mail::send('modules-assistant::help-email', $help_data, function($message) use ($help_attachment, $help_subject, $partner, $user, $company) {
+                $message->to($company->email, $partner->name)->subject($help_subject);
+                if (!empty($help_attachment)) {
+                    $message->attach($help_attachment->getRealPath(),
                         [
-                            'as' => $attachment->getClientOriginalName(),
-                            'mime' => $attachment->getClientMimeType(),
+                            'as' => $help_attachment->getClientOriginalName(),
+                            'mime' => $help_attachment->getClientMimeType(),
                         ]);
                 }
                 $message->from('hello@dorcas.io','Dorcas Hub');
-            });*/
+                $message->replyTo($user->email, $user->firstname .' '. $user->lastname);
+            });
 
-            /*Mail::to($request->user())
-                ->cc($moreUsers)
-                ->bcc($evenMoreUsers)
-                ->send(new OrderShipped($order));*/
-
-            /*Mail::to($request->user())
-                ->cc($moreUsers)
-                ->bcc($evenMoreUsers)
-                ->queue(new OrderShipped($order));*/
-
+            $response = "Success";
 
         } catch (\Exception $e) {
             $response = "Error". $e->getMessage();
         }
-
-        $response = "Success";
+        
         return $response;
     }
 
