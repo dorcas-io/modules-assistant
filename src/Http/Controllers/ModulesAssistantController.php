@@ -562,7 +562,7 @@ class ModulesAssistantController extends Controller {
             }
             
 
-            $help_subject = ($appUiSettings['product_name'] ?? 'Dorcas Hub') . ' Message from' . $user->firstname .' '. $user->lastname;
+            $help_subject = ($appUiSettings['product_name'] ?? 'Dorcas Hub') . ' Message from ' . $user->firstname .' '. $user->lastname;
             $subdomain = null;
             if (empty($request->session()->get('domain')) && !empty($partner->domain_issuances)) {
                 $domain = $partner->domain_issuances['data'][0] ?? null;
