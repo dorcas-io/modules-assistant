@@ -633,7 +633,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Contains management tools to create, edit, categorize and group your esteemed customers",
             "docs_tag" => 13,
             "video" => "",
-            "display_image" => "images/overview/mcu.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-customers'),
             "action_title" => "",
             "action_link" => ""
@@ -647,7 +647,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Comes with tools to manage domain names, email accounts, build websites, blogs and setup online stores",
             "docs_tag" => 39,
             "video" => "",
-            "display_image" => "images/overview/mec.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-ecommerce'),
             "action_title" => "",
             "action_link" => ""
@@ -661,7 +661,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Allows you to manage your employees&apos; data and organize them using departments and teams",
             "docs_tag" => 21,
             "video" => "",
-            "display_image" => "images/overview/mpe.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-people'),
             "action_title" => "",
             "action_link" => ""
@@ -675,7 +675,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Contains several tools to add, edit and categorize your products as well as invoicing and order management",
             "docs_tag" => "",
             "video" => "",
-            "display_image" => "images/overview/msl.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-sales'),
             "action_title" => "",
             "action_link" => ""
@@ -689,7 +689,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Contains tools and interfaces for adding, importing and categorizing your accounting entries",
             "docs_tag" => 40,
             "video" => "",
-            "display_image" => "images/overview/mfn.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-finance'),
             "action_title" => "",
             "action_link" => ""
@@ -703,7 +703,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Contains a selection of learning resources such as videos on various business topics",
             "docs_tag" => 28,
             "video" => "",
-            "display_image" => "images/overview/mli.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-library'),
             "action_title" => "",
             "action_link" => ""
@@ -717,7 +717,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Discover a pool of service professionals as well as product vendors that are ready to help your business",
             "docs_tag" => 41,
             "video" => "",
-            "display_image" => "images/overview/mmp.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-marketplace'),
             "action_title" => "",
             "action_link" => ""
@@ -731,7 +731,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Contains apps that when installed, provide additional functionality to your digital operations",
             "docs_tag" => 30,
             "video" => "",
-            "display_image" => "images/overview/map.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-app-store'),
             "action_title" => "",
             "action_link" => ""
@@ -745,7 +745,7 @@ class ModulesAssistantController extends Controller {
             "description" => "This allows you to leverage the features of existing 3rd-party platforms",
             "docs_tag" => 27,
             "video" => "",
-            "display_image" => "images/overview/mit.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-integrations'),
             "action_title" => "",
             "action_link" => ""
@@ -759,7 +759,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Allows professional service providers to request access to other SME&apos;s Hub accounts",
             "docs_tag" => 36,
             "video" => "",
-            "display_image" => "images/overview/mpa.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-access-requests'),
             "action_title" => "",
             "action_link" => ""
@@ -773,7 +773,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Allows professional service provicers to receive service requests from other SMEs",
             "docs_tag" => 37,
             "video" => "",
-            "display_image" => "images/overview/mps.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-service-requests'),
             "action_title" => "",
             "action_link" => ""
@@ -787,7 +787,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Allows professional service providers to properly showcase their credentials and experience",
             "docs_tag" => 38,
             "video" => "",
-            "display_image" => "images/overview/mpp.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-service-profile'),
             "action_title" => "",
             "action_link" => ""
@@ -801,7 +801,7 @@ class ModulesAssistantController extends Controller {
             "description" => "Several settings that allow you to customize several aspects of your experience with the Hub",
             "docs_tag" => "",
             "video" => "",
-            "display_image" => "images/overview/mse.jpg",
+            "display_image" => "images/overview/dashboard.jpg",
             "action_list" => $this->getModuleSubMenus($request,'modules-settings'),
             "action_title" => "",
             "action_link" => ""
