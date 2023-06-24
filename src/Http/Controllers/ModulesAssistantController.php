@@ -447,24 +447,30 @@ class ModulesAssistantController extends Controller {
         $footer = 'Still can\'t find what you are looking for? Contact us via the Help section';
         $body = [];
 
-        if (!empty($tag) && is_numeric($tag)) { //&& is_numeric($tag)
-            //$docs_url = 'https://blog.smartbusiness.com.ng/wp-json/wp/v2/posts?search='.$tag;
-            $docs_url = 'https://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
-            $client = new \GuzzleHttp\Client();
-            $request = $client->get($docs_url);
-            $response = json_decode($request->getBody()->getContents());
-            //dd($response);
-            foreach ($response as $key => $value) {
-                $body[] = [
-                    'post_id' => $value->id,
-                    'post_title' => $value->title->rendered,
-                    'post_body' => str_replace("\n","<br>",$value->content->rendered),
-                    'post_excerpt' => str_replace("\n","<br>",$value->excerpt->rendered),
-                    'post_featured_media' => $value->featured_media ?: '',
-                    'post_guid' => $value->guid->rendered,
-                    'post_link' => $value->link,
-                    'post_slug' => $value->slug
-                ];
+        if (!empty($tag) && is_numeric($tag)) {
+            
+            try {
+                //$docs_url = 'https://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
+                // Lets use the new format
+                $docs_url = 'https://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
+                $client = new \GuzzleHttp\Client();
+                $request = $client->get($docs_url);
+                $response = json_decode($request->getBody()->getContents());
+                //dd($response);
+                foreach ($response as $key => $value) {
+                    $body[] = [
+                        'post_id' => $value->id,
+                        'post_title' => $value->title->rendered,
+                        'post_body' => str_replace("\n","<br>",$value->content->rendered),
+                        'post_excerpt' => str_replace("\n","<br>",$value->excerpt->rendered),
+                        'post_featured_media' => $value->featured_media ?: '',
+                        'post_guid' => $value->guid->rendered,
+                        'post_link' => $value->link,
+                        'post_slug' => $value->slug
+                    ];
+                }
+            } catch (\Exception $e) {
+                $body = [];
             }
         }
         
