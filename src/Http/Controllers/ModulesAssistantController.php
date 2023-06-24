@@ -58,74 +58,87 @@ class ModulesAssistantController extends Controller {
         switch ($module) {
             case 'dashboard':
                 $this->data['header_message']['message'] = '<strong>Welcome to Dorcas Hub Dashboard</strong>. It contains vital statistics about your business operations as well as quick shortcuts to other functions';
-                $pageinfo["docs_tag"] = 35;
+                $pageinfo["docs_tag"] = "overview";
+                $pageinfo["docs_type"] = "page";
                 $pageinfo["video"] = "https://www.youtube.com/embed/Ge2Q-XWKdk8";
                 break;
             case 'mcu':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>!';
-                $pageinfo["docs_tag"] = 13;
+                $pageinfo["docs_tag"] = "customers-module";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mpe':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-people.title', 'People').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-people.title', 'Customers').' People</strong>!';
-                $pageinfo["docs_tag"] = 21;
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mli':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-library.title', 'Library').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-library.title', 'Library').' Module</strong>!';
-                $pageinfo["docs_tag"] = 28;
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'map':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>!';
-                $pageinfo["docs_tag"] = 30;
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mit':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>!';
-                $pageinfo["docs_tag"] = 27;
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mpa':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>!';
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
-                $pageinfo["docs_tag"] = 36;
             case 'mps':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>!';
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
-                $pageinfo["docs_tag"] = 37;
             case 'mpp':
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>!';
-                $pageinfo["docs_tag"] = 38;
                 break;
             case 'mec':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>!';
-                $pageinfo["docs_tag"] = 39;
+                $pageinfo["docs_tag"] = "ecommerce-module";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mfn':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>!';
-                $pageinfo["docs_tag"] = 40;
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mmp':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>!';
-                $pageinfo["docs_tag"] = 41;
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'msl':
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>!';
+                $pageinfo["docs_tag"] = "sales-module";
+                $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mse':
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>!';
                 break;
             
             default:
-            $this->data['header_message']['message'] = 'Thanks for using the <strong>Dorcas Hub</strong>!';
-                $pageinfo["docs_tag"] = 42;
+                $this->data['header_message']['message'] = 'Thanks for using the <strong>Dorcas Hub</strong>!';
+                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_type"] = "chapter";
                 break;
         }
 
 
         $this->data['assistant_assistant']['assistant_1_body'] = $this->generateOverviewVideo($pageinfo["video"], $pageinfo["overview_msg"]);
 
-        #get docs
-        //$docs_module = $this->generateDocs($module);
-        //$docs_url = $this->generateDocs($url);
-
-        $docs = $this->generateDocs($pageinfo["docs_tag"], $pageinfo["title"]);
+        $docs = $this->generateDocs($pageinfo["docs_type"], $pageinfo["docs_tag"], $pageinfo["title"]);
 
         $this->data['assistant_docs']['docs_header'] = $docs["header"];
         $this->data['assistant_docs']['docs_body'] = $docs["body"];
@@ -141,7 +154,7 @@ class ModulesAssistantController extends Controller {
 
     public function getPageInfo(string $url)
     {
-        $info = ["title" => "", "description" => "", "docs_tag" => "", 'video' => 'https://www.youtube.com/embed/SqBXm0acWNQ', 'overview_msg' => 'Watch the video below to get started!'];
+        $info = ["title" => "", "description" => "", "docs_type" => "", "docs_tag" => "", 'video' => 'https://www.youtube.com/embed/SqBXm0acWNQ', 'overview_msg' => 'Watch the video below to get started!'];
 
         switch ($url) {
 
@@ -450,25 +463,60 @@ class ModulesAssistantController extends Controller {
         if (!empty($tag) && is_numeric($tag)) {
             
             try {
-                //$docs_url = 'https://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
                 // Lets use the new format
-                $docs_url = 'https://docs.dorcas.io/wp-json/wp/v2/posts?tags='.$tag;
+                $base_url = "http://docs.hostville.ng";
+                $book = "dorcas-enterprise-manual";
+                $chapter = $tag; // "customers-module";
+                $docs_url = "$base_url/books/$book/chapter/$chapter";
                 $client = new \GuzzleHttp\Client();
                 $request = $client->get($docs_url);
-                $response = json_decode($request->getBody()->getContents());
-                //dd($response);
-                foreach ($response as $key => $value) {
-                    $body[] = [
-                        'post_id' => $value->id,
-                        'post_title' => $value->title->rendered,
-                        'post_body' => str_replace("\n","<br>",$value->content->rendered),
-                        'post_excerpt' => str_replace("\n","<br>",$value->excerpt->rendered),
-                        'post_featured_media' => $value->featured_media ?: '',
-                        'post_guid' => $value->guid->rendered,
-                        'post_link' => $value->link,
-                        'post_slug' => $value->slug
-                    ];
+
+                if ($request->getStatusCode() === 200) {
+
+                    $response = json_decode($request->getBody()->getContents());
+
+                    // Create a DOMDocument and load the HTML
+                    $dom = new DOMDocument();
+                    libxml_use_internal_errors(true); // Disable error reporting for invalid HTML
+                    $dom->loadHTML($html);
+                    libxml_clear_errors();
+
+                    // Create a DOMXPath object to query the DOM
+                    $xpath = new DOMXPath($dom);
+
+                    // Find the div with class "entity-list"
+                    $entityListDiv = $xpath->query('//div[contains(@class, "entity-list")]')->item(0);
+
+                    // Find all the "a" tags under the div with classes "page" and "entity-list-item"
+                    $aTags = $xpath->query('.//a[contains(@class, "page") and contains(@class, "entity-list-item")]', $entityListDiv);
+                    foreach ($aTags as $aTag) {
+                        // Extract the attributes of the "a" tag
+                        $href = $aTag->getAttribute('href');
+                        $id = $aTag->getAttribute('data-entity-id');
+                        // You can extract other attributes similarly if needed
+
+                        // Find the h4 tag with class "entity-list-item-name"
+                        $h4Tag = $xpath->query('.//h4[contains(@class, "entity-list-item-name")]', $aTag)->item(0);
+                        $h4Text = $h4Tag ? $h4Tag->textContent : '';
+
+                        // Find the p tag under div with class "entity-item-snippet"
+                        $pTag = $xpath->query('.//div[contains(@class, "entity-item-snippet")]/p', $aTag)->item(0);
+                        $pText = $pTag ? $pTag->textContent : '';
+
+                        $body[] = [
+                            'post_id' => $value->id,
+                            'post_title' => $h4Text,
+                            'post_body' => $pText,
+                            'post_excerpt' => $pText,
+                            'post_link' => $aTag->getAttribute('href')
+                        ];
+                    }
+
+
+                } else {
+                    $body = [];
                 }
+
             } catch (\Exception $e) {
                 $body = [];
             }
@@ -511,39 +559,6 @@ class ModulesAssistantController extends Controller {
      */
     public function helpSendMessage(Request $request, Sdk $sdk)
     {
-
-        /*$this->validate($request, [
-            'message' => 'required|string',
-            'attachment' => 'nullable|file|max:6144',
-        ], [
-            'attachment.max' => 'The attachment should not be greater than 6Mb, you can compress the file into an archive.'
-        ]);*/
-        # validate the request
-        //mail("ifeoluwa.olawoye@gmail.com", "Testing email", $request->input('help-message', ''));
-             /*$name = $request->input('customer-name', '');
-            $email = $request->input('customer-email', '');
-            $phone = $request->input('customer-phone', '');
-            $message = $request->input('help-message', '');
-            $area = $request->input('help-area', '');
-            $attachment = $request->file('attachment', null);
-
-            $help_data = array(
-                "name" => $name,
-                "email" => $email,
-                "phone" => $phone,
-                "message" => $message,
-            );
-
-
-            $message_st = implode("\n\n", $help_data);
-
-        Mail::raw($message_st, function ($message) {
-            $subject = "Email Subject";
-                $message->to('ifeoluwa.olawoye@gmail.com');
-                $message->subject($subject);
-             });
-
-        return "Yay";*/
 
         try {
             
