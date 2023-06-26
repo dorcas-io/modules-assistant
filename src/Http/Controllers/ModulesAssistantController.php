@@ -454,7 +454,7 @@ class ModulesAssistantController extends Controller {
     }
 
 
-    public function generateDocs(string $tag, string $title) {
+    public function generateDocs(string $doc_type, string $tag, string $title) {
 
         $header = 'Find below some documentation related to <strong>' . $title . '</strong>';
         $footer = 'Still can\'t find what you are looking for? Contact us via the Help section';
@@ -466,8 +466,8 @@ class ModulesAssistantController extends Controller {
                 // Lets use the new format
                 $base_url = "http://docs.hostville.ng";
                 $book = "dorcas-enterprise-manual";
-                $chapter = $tag; // "customers-module";
-                $docs_url = "$base_url/books/$book/chapter/$chapter";
+                $chapter = $doc_type; // "customers-module";
+                $docs_url = "$base_url/books/$book/$chapter/$tag";
                 $client = new \GuzzleHttp\Client();
                 $request = $client->get($docs_url);
 
