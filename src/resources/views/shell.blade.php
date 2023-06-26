@@ -4,13 +4,13 @@
 
     <ul class="nav nav-tabs nav-justified">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#assistant_assistant">Assistant</a>
+            <a class="nav-link active" data-toggle="tab" href="#assistant_assistant">Videos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#assistant_docs">Documents</a>
+            <a class="nav-link" data-toggle="tab" href="#assistant_docs">Manuals</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#assistant_help">Contact</a>
+            <a class="nav-link" data-toggle="tab" href="#assistant_help">Message</a>
         </li>
     </ul>
 
@@ -59,16 +59,16 @@
                             </li>
                         </ul>
                     </div> 
-                    <div class="text-right">
+                    <div>
                         <button class="btn btn-sm btn-outline-primary" @click="showDocsToggle" v-html="showDocsLabel"></button>
                     </div>
                 </div>
-
 
                 <div class="alert alert-warning" v-if="typeof a.docs.docs_body !== 'undefined' && a.docs.docs_body.length === 0">
                     No Documentation Found
                 </div>
             </div>
+            <br/>
             <p v-html="a.docs.docs_footer">@{{ a.docs.docs_footer }}</p>
         </div>
         

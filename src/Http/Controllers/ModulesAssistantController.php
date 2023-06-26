@@ -63,69 +63,69 @@ class ModulesAssistantController extends Controller {
                 $pageinfo["video"] = "https://www.youtube.com/embed/Ge2Q-XWKdk8";
                 break;
             case 'mcu':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-customers.title', 'Customers').' Module</strong>!';
                 $pageinfo["docs_tag"] = "customers-module";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mpe':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-people.title', 'People').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-people.title', 'Customers').' People</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-people.title', 'People').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-people.title', 'Customers').' People</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mli':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-library.title', 'Library').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-library.title', 'Library').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-library.title', 'Library').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-library.title', 'Library').' Module</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'map':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-app-store.title', 'App Store').' Module</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mit':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-integrations.title', 'Integrations').' Module</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mpa':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-access-requests.title', 'Access Requests').' Module</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mps':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-service-requests.title', 'Service Requests').' Module</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mpp':
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-service-profile.title', 'Service Profile').' Module</strong>!';
                 break;
             case 'mec':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-ecommerce.title', 'eCommerce').' Module</strong>!';
                 $pageinfo["docs_tag"] = "ecommerce-module";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mfn':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-finance.title', 'Finance').' Module</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mmp':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-marketplace.title', 'Marketplace').' Module</strong>!';
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'msl':
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-sales.title', 'Sales').' Module</strong>!';
                 $pageinfo["docs_tag"] = "sales-module";
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mse':
                 $pageinfo["docs_tag"] = "";
                 $pageinfo["docs_type"] = "chapter";
-                $this->data['header_message']['message'] = $page_info ? 'You are currently using the '.$pageinfo["title"].' of the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>! '. $pageinfo["description"] : 'You are currently using the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>!';
+                $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>!';
                 break;
             
             default:
@@ -457,10 +457,10 @@ class ModulesAssistantController extends Controller {
     public function generateDocs(string $doc_type, string $tag, string $title) {
 
         $header = 'Find below some documentation related to <strong>' . $title . '</strong>';
-        $footer = 'Still can\'t find what you are looking for? Contact us via the Help section';
+        $footer = 'Still can\'t find what you are looking for? Contact us via the Messages section';
         $body = [];
 
-        if (!empty($tag) && is_numeric($tag)) {
+        if (!empty($tag)) {
             
             try {
                 // Lets use the new format
