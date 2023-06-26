@@ -4,13 +4,13 @@
 
     <ul class="nav nav-tabs nav-justified">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#assistant_assistant">Assistant</a>
+            <a class="nav-link active" data-toggle="tab" href="#assistant_assistant">Videos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#assistant_docs">Documents</a>
+            <a class="nav-link" data-toggle="tab" href="#assistant_docs">Manuals</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#assistant_help">Contact</a>
+            <a class="nav-link" data-toggle="tab" href="#assistant_help">Message</a>
         </li>
     </ul>
 

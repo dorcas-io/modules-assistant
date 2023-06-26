@@ -46,30 +46,18 @@
             <div class="row">
                 <div id="assistantdocs" v-if="typeof a.docs.docs_body !== 'undefined' && a.docs.docs_body.length > 0">
                     <div v-if="showLessDocs">
-                        <div class="card" v-for="(doc, index) in a.docs.docs_body" :key="doc.post_id" v-if="index <= showDocsCount">
-                            <div class="card-header" :id="'heading' + doc.post_id">
-                                <button class="btn btn-link" :class="index ? 'collapsed' : ''" data-toggle="collapse" :data-target="'#collapse' + doc.post_id" :aria-expanded="index ===0 ? 'true' : 'false'" :aria-controls="'collapse' + doc.post_id">
-                                    @{{ doc.post_title }}
-                                </button>
-                            </div>
-                            <div :id="'collapse' + doc.post_id" class="collapse" :class="index ? '' : 'show'" :aria-labelledby="'heading' + doc.post_id" data-parent="#assistantdocs">
-                                <div class="card-body" v-html="doc.post_excerpt"></div>
-                            </div>
-                        </div>
+                        <ul>
+                            <li v-for="(doc, index) in a.docs.docs_body" :key="doc.post_id" v-if="index <= showDocsCount">
+                                <a :href="doc.post_link" target="_blank">@{{ doc.post_title }}</a>
+                            </li>
+                        </ul>
                     </div>
                     <div v-else>
-                        <div class="card" v-for="(doc, index) in a.docs.docs_body" :key="doc.post_id">
-                            <div class="card-header" :id="'heading' + doc.post_id">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" :class="index ? 'collapsed' : ''" data-toggle="collapse" :data-target="'#collapse' + doc.post_id" :aria-expanded="index ===0 ? 'true' : 'false'" :aria-controls="'collapse' + doc.post_id">
-                                        @{{ doc.post_title }}
-                                    </button>
-                                </h5>
-                            </div>
-                            <div :id="'collapse' + doc.post_id" class="collapse" :class="index ? '' : 'show'" :aria-labelledby="'heading' + doc.post_id" data-parent="#assistantdocs">
-                                <div class="card-body" v-html="doc.post_body"></div>
-                            </div>
-                        </div>
+                        <ul>
+                            <li v-for="(doc, index) in a.docs.docs_body" :key="doc.post_id">
+                                <a :href="doc.post_link" target="_blank">@{{ doc.post_title }}</a>
+                            </li>
+                        </ul>
                     </div> 
                     <div class="text-right">
                         <button class="btn btn-sm btn-outline-primary" @click="showDocsToggle" v-html="showDocsLabel"></button>

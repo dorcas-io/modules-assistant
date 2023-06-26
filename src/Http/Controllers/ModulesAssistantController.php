@@ -473,16 +473,17 @@ class ModulesAssistantController extends Controller {
 
                 if ($request->getStatusCode() === 200) {
 
-                    $response = json_decode($request->getBody()->getContents());
+                    //$html = json_decode($request->getBody()->getContents());
+                    $html = $request->getBody()->getContents();
 
                     // Create a DOMDocument and load the HTML
-                    $dom = new DOMDocument();
+                    $dom = new \DOMDocument();
                     libxml_use_internal_errors(true); // Disable error reporting for invalid HTML
                     $dom->loadHTML($html);
                     libxml_clear_errors();
 
                     // Create a DOMXPath object to query the DOM
-                    $xpath = new DOMXPath($dom);
+                    $xpath = new \DOMXPath($dom);
 
                     // Find the div with class "entity-list"
                     $entityListDiv = $xpath->query('//div[contains(@class, "entity-list")]')->item(0);
@@ -504,11 +505,11 @@ class ModulesAssistantController extends Controller {
                         $pText = $pTag ? $pTag->textContent : '';
 
                         $body[] = [
-                            'post_id' => $value->id,
+                            'post_id' => $id,
                             'post_title' => $h4Text,
                             'post_body' => $pText,
                             'post_excerpt' => $pText,
-                            'post_link' => $aTag->getAttribute('href')
+                            'post_link' => $href
                         ];
                     }
 
