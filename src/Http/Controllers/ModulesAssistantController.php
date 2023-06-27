@@ -465,7 +465,7 @@ class ModulesAssistantController extends Controller {
             try {
                 // Lets use the new format
                 $base_url = "http://docs.hostville.ng";
-                $book = "dorcas-enterprise-manual";
+                $book = "dorcas-ecommerce-suite";
                 $chapter = $doc_type; // "customers-module";
                 $docs_url = "$base_url/books/$book/$chapter/$tag";
                 $client = new \GuzzleHttp\Client();
