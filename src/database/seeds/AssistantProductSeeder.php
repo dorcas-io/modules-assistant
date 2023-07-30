@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Company;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -24,7 +26,6 @@ class AssistantProductSeeder extends Seeder
 
     public function run()
     {
-
         //php artisan db:seed --force --class=AssistantProductSeeder
 
         $config = config('modules-assistant-seeder.seeders.seeds.products', []);
@@ -33,43 +34,56 @@ class AssistantProductSeeder extends Seeder
             exit(0);
         }
 
-        dd($config);
+        $db = DB::connection('core_mysql');
 
         $multiTenant = env('DORCAS_EDITION', 'business') != 'business';
 
         if (!$multiTenant) {
-            $defaultUsers = User::with('company')->first();
+            $defaultUsers = $db->table("users")->first();
         } else {
-            $defaultUsers = User::with('company')->orderBy('created_at','asc')->get(); //->where('is_partner', 0)
+            $defaultUsers = $db->table("users")->orderBy('created_at','asc')->get();
         }
 
         if (!empty($config["users"]) && $multiTenant ) {
-            $defaultUsers->take($config["users"]);
+            $defaultUsers->limit($config["users"]);
         }
 
+        dd($defaultUsers);
         
         foreach ($defaultUsers as $user) {
 
+            dd($user);
+
             $faker = Faker::create();
 
-            $company = $user->company;
+            $company = $user['company_id'];
             # get the company
 
-            $categories = $company->productCategories();
+            //$categories = $company->productCategories();
+            $categories = $db->table("product_categories")->get();
             # check if categories exist
 
             if (empty($categories->count())) {
                 $category_name = "Default";
                 $slug = $company->id . '-' . Str::slug($category_name);
                 # set the slug
-                if (ProductCategory::where('slug', $slug)->count() > 0) {
+                if ($db->table("product_categories")->where('slug', $slug)->count() > 0) {
                     $slug .= '-' . uniqid();
                 }
-                $category = $company->productCategories()->create([
+                // $category = $company->productCategories()->create([
+                //     'name' => $category_name,
+                //     'slug' => $slug,
+                //     'description' => 'Default Product Category'
+                // ]);
+                //insertGetId
+                $category = $db->table("product_categories")->insert([
+                    'uuid' => (string) \Illuminate\Support\Str::uuid(),
+                    'company_id' => $company->id,
                     'name' => $category_name,
                     'slug' => $slug,
                     'description' => 'Default Product Category'
                 ]);
+
             } else {
                 $category = $categories->first();
             }
@@ -82,12 +96,21 @@ class AssistantProductSeeder extends Seeder
                 $stock = rand(4, 20);
                 $image = $faker->imageUrl(360, 360, 'electronics', true, 'cats');
 
-                $product = $company->products()->create([
+                // $product = $company->products()->create([
+                //     'name' => $faker->word,
+                //     'description' => $faker->sentence,
+                //     'product_type' => 'default',
+                //     'unit_price' => $amount
+                // ]);
+                $product = $db->table("product_categories")->insert([
+                    'uuid' => (string) \Illuminate\Support\Str::uuid(),
+                    'company_id' => $company->id,
                     'name' => $faker->word,
                     'description' => $faker->sentence,
                     'product_type' => 'default',
                     'unit_price' => $amount
                 ]);
+
                 # create product
 
                 $productPrices = collect([]);
@@ -99,7 +122,7 @@ class AssistantProductSeeder extends Seeder
                 $product->prices()->createMany($productPrices);
                 # update product price
 
-                $categories = ProductCategory::where('uuid', $category->uuid)->pluck('id');
+                $categories = ProductCategory::on('core_mysql')->where('uuid', $category->uuid)->pluck('id');
 
                 $product->categories()->sync($categories);
                 # update product category
