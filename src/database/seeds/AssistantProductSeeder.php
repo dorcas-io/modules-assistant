@@ -39,24 +39,20 @@ class AssistantProductSeeder extends Seeder
         $multiTenant = env('DORCAS_EDITION', 'business') != 'business';
 
         if (!$multiTenant) {
-            $defaultUsers = $db->table("users")->first();
+            $defaultUsers = $db->table("users")->where('is_employee', 0)->first();
         } else {
-            $defaultUsers = $db->table("users")->orderBy('created_at','asc')->get();
+            $defaultUsers = $db->table("users")->where('is_employee', 0)->orderBy('created_at','asc')->get();
         }
 
         if (!empty($config["users"]) && $multiTenant ) {
             $defaultUsers->limit($config["users"]);
         }
-
-        dd($defaultUsers);
         
         foreach ($defaultUsers as $user) {
 
-            dd($user);
-
             $faker = Faker::create();
 
-            $company = $user['company_id'];
+            $company = $user->company_id;
             # get the company
 
             //$categories = $company->productCategories();
@@ -70,12 +66,6 @@ class AssistantProductSeeder extends Seeder
                 if ($db->table("product_categories")->where('slug', $slug)->count() > 0) {
                     $slug .= '-' . uniqid();
                 }
-                // $category = $company->productCategories()->create([
-                //     'name' => $category_name,
-                //     'slug' => $slug,
-                //     'description' => 'Default Product Category'
-                // ]);
-                //insertGetId
                 $category = $db->table("product_categories")->insert([
                     'uuid' => (string) \Illuminate\Support\Str::uuid(),
                     'company_id' => $company->id,
@@ -87,7 +77,6 @@ class AssistantProductSeeder extends Seeder
             } else {
                 $category = $categories->first();
             }
-            dd($category);
 
             // Create Products
             for ($i = 0; $i <= $config["count"]; $i++) {
@@ -96,13 +85,7 @@ class AssistantProductSeeder extends Seeder
                 $stock = rand(4, 20);
                 $image = $faker->imageUrl(360, 360, 'electronics', true, 'cats');
 
-                // $product = $company->products()->create([
-                //     'name' => $faker->word,
-                //     'description' => $faker->sentence,
-                //     'product_type' => 'default',
-                //     'unit_price' => $amount
-                // ]);
-                $product = $db->table("product_categories")->insert([
+                $product = $db->table("products")->insert([
                     'uuid' => (string) \Illuminate\Support\Str::uuid(),
                     'company_id' => $company->id,
                     'name' => $faker->word,
@@ -119,22 +102,45 @@ class AssistantProductSeeder extends Seeder
                 $productPrices[] = ['currency' => env('SETTINGS_CURRENCY', 'NGN'), 'unit_price' => $amount];
                 # add the price to the array
 
-                $product->prices()->createMany($productPrices);
+                //$product->prices()->createMany($productPrices);
+                $productPrices->each(function ($item, $key) {
+                    $db->table("product_prices")->insert([
+                        'uuid' => (string) \Illuminate\Support\Str::uuid(),
+                        'product_id' => $product->id,
+                        'currency' => $item["unit_price"],
+                        'unit_price' => $item["unit_price"]
+                    ]);
+                });
                 # update product price
 
-                $categories = ProductCategory::on('core_mysql')->where('uuid', $category->uuid)->pluck('id');
-
-                $product->categories()->sync($categories);
+                //$product->categories()->sync($categories);
+                $db->table("product_prices")->insert([
+                    'product_id' => $product->id,
+                    'product_category_id' => $category->id,
+                ]);
                 # update product category
 
-                $product->stocks()->create(['action' => 'add', 'quantity' => $stock, 'comment' => 'Default Stock']);
+                //$product->stocks()->create(['action' => 'add', 'quantity' => $stock, 'comment' => 'Default Stock']);
+                $db->table("product_stocks")->insert([
+                    'product_id' => $product->id,
+                    'action' => 'add',
+                    'quantity' => $stock,
+                    'comment' => 'Default Stock'
+                ]);
                 # update product stock
 
-                $product->update(['inventory' => $stock]);
+                //$product->update(['inventory' => $stock]);
+                //$p = $db->table("products")->where('id', $id);
+                $db->table("products")->where('id', $id)->update(['inventory' => $stock]);
                 # update product stock
 
                 if (!empty($image)) {
-                    $product->images()->create(['url' => $image]);
+                    //$product->images()->create(['url' => $image]);
+                    $db->table("product_images")->insert([
+                        'uuid' => (string) \Illuminate\Support\Str::uuid(),
+                        'product_id' => $product->id,
+                        'url' => $image
+                    ]);
                 }
                 # update product image
 
