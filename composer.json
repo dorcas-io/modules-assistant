@@ -26,8 +26,8 @@
         "psr-4": {
             "Dorcas\\ModulesAssistant\\": "src/"
         },
-        "files": [
-            "database/seeds/AssistantSeeder.php"
+        "classmap": [
+            "src/database/"
         ]
     },
     "extra": {
