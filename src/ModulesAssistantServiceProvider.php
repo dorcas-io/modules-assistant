@@ -11,6 +11,7 @@ class ModulesAssistantServiceProvider extends ServiceProvider {
 		$this->loadViewsFrom(__DIR__.'/resources/views', 'modules-assistant');
 		$this->publishes([
 			__DIR__.'/config/modules-assistant.php' => config_path('modules-assistant.php'),
+			__DIR__.'/config/modules-assistant-seeder.php' => config_path('modules-assistant-seeder.php'),
 		], 'dorcas-modules');
 		/*$this->publishes([
 			__DIR__.'/assets' => public_path('vendor/modules-assistant')
