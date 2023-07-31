@@ -103,6 +103,12 @@ class AssistantProductSeeder extends Seeder
                 ]);
                 # create product
 
+                $db->table("product_category")->insert([
+                    'product_id' => $product_id,
+                    'product_category_id' => $category_id
+                ]);
+                # update product category
+
                 $productPrices = collect([]);
                 # product price container
 
@@ -120,12 +126,6 @@ class AssistantProductSeeder extends Seeder
                     ]);
                 });
                 # update product price
-
-                $db->table("product_category")->insert([
-                    'product_id' => $product_id,
-                    'product_category_id' => $category_id
-                ]);
-                # update product category
 
                 $db->table("product_stocks")->insert([
                     'product_id' => $product_id,

@@ -6,7 +6,7 @@ return [
         "seeds" => [
             "products" => [
                 "title" => "Add Products",
-                "count" => 1,
+                "count" => 3,
                 "users" => 1,
                 "seed_if_empty" => false,
             ]
