@@ -45,14 +45,14 @@ class AssistantProductSeeder extends Seeder
         }
 
         if (!empty($config["users"]) && $multiTenant ) {
-            $defaultUsers->limit($config["users"]);
+            $defaultUsers->take($config["users"]);
         }
         
         foreach ($defaultUsers as $user) {
 
             $faker = Faker::create();
 
-            $company = $user->company_id;
+            $company_id = $user->company_id;
             # get the company
 
             //$categories = $company->productCategories();
@@ -61,14 +61,14 @@ class AssistantProductSeeder extends Seeder
 
             if (empty($categories->count())) {
                 $category_name = "Default";
-                $slug = $company->id . '-' . Str::slug($category_name);
+                $slug = $company_id . '-' . Str::slug($category_name);
                 # set the slug
                 if ($db->table("product_categories")->where('slug', $slug)->count() > 0) {
                     $slug .= '-' . uniqid();
                 }
-                $category = $db->table("product_categories")->insert([
+                $category_id = $db->table("product_categories")->insertGetId([
                     'uuid' => (string) \Illuminate\Support\Str::uuid(),
-                    'company_id' => $company->id,
+                    'company_id' => $company_id,
                     'name' => $category_name,
                     'slug' => $slug,
                     'description' => 'Default Product Category'
@@ -76,7 +76,10 @@ class AssistantProductSeeder extends Seeder
 
             } else {
                 $category = $categories->first();
+                $category_id = $category_id;
             }
+
+            $products = $db->table("products")->get();
 
             // Create Products
             for ($i = 0; $i <= $config["count"]; $i++) {
@@ -85,11 +88,11 @@ class AssistantProductSeeder extends Seeder
                 $stock = rand(4, 20);
                 $image = $faker->imageUrl(360, 360, 'electronics', true, 'cats');
 
-                $product = $db->table("products")->insert([
+                $product_id = $db->table("products")->insertGetId([
                     'uuid' => (string) \Illuminate\Support\Str::uuid(),
-                    'company_id' => $company->id,
-                    'name' => $faker->word,
-                    'description' => $faker->sentence,
+                    'company_id' => $company_id,
+                    'name' => "Sample Product " . $products->count() + 1,
+                    'description' => "Sample Description",
                     'product_type' => 'default',
                     'unit_price' => $amount
                 ]);
@@ -106,8 +109,8 @@ class AssistantProductSeeder extends Seeder
                 $productPrices->each(function ($item, $key) {
                     $db->table("product_prices")->insert([
                         'uuid' => (string) \Illuminate\Support\Str::uuid(),
-                        'product_id' => $product->id,
-                        'currency' => $item["unit_price"],
+                        'product_id' => $product_id,
+                        'currency' => $item["currency"],
                         'unit_price' => $item["unit_price"]
                     ]);
                 });
@@ -115,14 +118,14 @@ class AssistantProductSeeder extends Seeder
 
                 //$product->categories()->sync($categories);
                 $db->table("product_prices")->insert([
-                    'product_id' => $product->id,
-                    'product_category_id' => $category->id,
+                    'product_id' => $product_id,
+                    'product_category_id' => $category_id,
                 ]);
                 # update product category
 
                 //$product->stocks()->create(['action' => 'add', 'quantity' => $stock, 'comment' => 'Default Stock']);
                 $db->table("product_stocks")->insert([
-                    'product_id' => $product->id,
+                    'product_id' => $product_id,
                     'action' => 'add',
                     'quantity' => $stock,
                     'comment' => 'Default Stock'
@@ -131,14 +134,14 @@ class AssistantProductSeeder extends Seeder
 
                 //$product->update(['inventory' => $stock]);
                 //$p = $db->table("products")->where('id', $id);
-                $db->table("products")->where('id', $id)->update(['inventory' => $stock]);
+                $db->table("products")->where('id', $product_id)->update(['inventory' => $stock]);
                 # update product stock
 
                 if (!empty($image)) {
                     //$product->images()->create(['url' => $image]);
                     $db->table("product_images")->insert([
                         'uuid' => (string) \Illuminate\Support\Str::uuid(),
-                        'product_id' => $product->id,
+                        'product_id' => $product_id,
                         'url' => $image
                     ]);
                 }
