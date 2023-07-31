@@ -71,7 +71,9 @@ class AssistantProductSeeder extends Seeder
                     'company_id' => $company_id,
                     'name' => $category_name,
                     'slug' => $slug,
-                    'description' => 'Default Product Category'
+                    'description' => 'Default Product Category',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ]);
 
             } else {
@@ -92,11 +94,12 @@ class AssistantProductSeeder extends Seeder
                 $product_id = $db->table("products")->insertGetId([
                     'uuid' => (string) \Illuminate\Support\Str::uuid(),
                     'company_id' => $company_id,
-                    'name' => "Sample Product " . $products->count() + 1,
+                    'name' => "Sample Product " . $products->count() + $i + 1,
                     'description' => "Sample Description",
                     'product_type' => 'default',
                     'unit_price' => $amount,
-                    'created_at' => Carbon::now()
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ]);
                 # create product
 
@@ -112,15 +115,15 @@ class AssistantProductSeeder extends Seeder
                         'product_id' => $product_id,
                         'currency' => $item["currency"],
                         'unit_price' => $item["unit_price"],
-                        'created_at' => Carbon::now()
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
                     ]);
                 });
                 # update product price
 
                 $db->table("product_category")->insert([
                     'product_id' => $product_id,
-                    'product_category_id' => $category_id,
-                    'created_at' => Carbon::now()
+                    'product_category_id' => $category_id
                 ]);
                 # update product category
 
@@ -129,7 +132,8 @@ class AssistantProductSeeder extends Seeder
                     'action' => 'add',
                     'quantity' => $stock,
                     'comment' => 'Default Stock',
-                    'created_at' => Carbon::now()
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ]);
                 # update product stock
 
@@ -142,7 +146,8 @@ class AssistantProductSeeder extends Seeder
                         'uuid' => (string) \Illuminate\Support\Str::uuid(),
                         'product_id' => $product_id,
                         'url' => $image,
-                        'created_at' => Carbon::now()
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
                     ]);
                 }
                 # update product image
