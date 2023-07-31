@@ -55,11 +55,11 @@ class AssistantProductSeeder extends Seeder
             $company_id = $user->company_id;
             # get the company
 
-            //$categories = $company->productCategories();
             $categories = $db->table("product_categories")->get();
             # check if categories exist
 
             if (empty($categories->count())) {
+
                 $category_name = "Default";
                 $slug = $company_id . '-' . Str::slug($category_name);
                 # set the slug
@@ -76,7 +76,7 @@ class AssistantProductSeeder extends Seeder
 
             } else {
                 $category = $categories->first();
-                $category_id = $category_id;
+                $category_id = $category->id;
             }
 
             $products = $db->table("products")->get();
@@ -86,7 +86,8 @@ class AssistantProductSeeder extends Seeder
 
                 $amount = rand(2000, 10000);
                 $stock = rand(4, 20);
-                $image = $faker->imageUrl(360, 360, 'electronics', true, 'cats');
+                //$image = $faker->imageUrl(360, 360, 'electronics', true, 'cats');
+                $image = null;
 
                 $product_id = $db->table("products")->insertGetId([
                     'uuid' => (string) \Illuminate\Support\Str::uuid(),
@@ -94,9 +95,9 @@ class AssistantProductSeeder extends Seeder
                     'name' => "Sample Product " . $products->count() + 1,
                     'description' => "Sample Description",
                     'product_type' => 'default',
-                    'unit_price' => $amount
+                    'unit_price' => $amount,
+                    'created_at' => Carbon::now()
                 ]);
-
                 # create product
 
                 $productPrices = collect([]);
@@ -105,35 +106,33 @@ class AssistantProductSeeder extends Seeder
                 $productPrices[] = ['currency' => env('SETTINGS_CURRENCY', 'NGN'), 'unit_price' => $amount];
                 # add the price to the array
 
-                //$product->prices()->createMany($productPrices);
-                $productPrices->each(function ($item, $key) {
+                $productPrices->each(function ($item, $key) use($db, $product_id) {
                     $db->table("product_prices")->insert([
                         'uuid' => (string) \Illuminate\Support\Str::uuid(),
                         'product_id' => $product_id,
                         'currency' => $item["currency"],
-                        'unit_price' => $item["unit_price"]
+                        'unit_price' => $item["unit_price"],
+                        'created_at' => Carbon::now()
                     ]);
                 });
                 # update product price
 
-                //$product->categories()->sync($categories);
-                $db->table("product_prices")->insert([
+                $db->table("product_category")->insert([
                     'product_id' => $product_id,
                     'product_category_id' => $category_id,
+                    'created_at' => Carbon::now()
                 ]);
                 # update product category
 
-                //$product->stocks()->create(['action' => 'add', 'quantity' => $stock, 'comment' => 'Default Stock']);
                 $db->table("product_stocks")->insert([
                     'product_id' => $product_id,
                     'action' => 'add',
                     'quantity' => $stock,
-                    'comment' => 'Default Stock'
+                    'comment' => 'Default Stock',
+                    'created_at' => Carbon::now()
                 ]);
                 # update product stock
 
-                //$product->update(['inventory' => $stock]);
-                //$p = $db->table("products")->where('id', $id);
                 $db->table("products")->where('id', $product_id)->update(['inventory' => $stock]);
                 # update product stock
 
@@ -142,7 +141,8 @@ class AssistantProductSeeder extends Seeder
                     $db->table("product_images")->insert([
                         'uuid' => (string) \Illuminate\Support\Str::uuid(),
                         'product_id' => $product_id,
-                        'url' => $image
+                        'url' => $image,
+                        'created_at' => Carbon::now()
                     ]);
                 }
                 # update product image
