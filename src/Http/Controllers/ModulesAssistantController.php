@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Cache;
 use App\Mail\HelpEmail;
 use Illuminate\Support\Facades\Mail;
 
+use Illuminate\Support\Facades\Artisan;
+
 class ModulesAssistantController extends Controller {
 
     public function __construct()
@@ -38,6 +40,40 @@ class ModulesAssistantController extends Controller {
     	$this->data['availableModules'] = HomeController::SETUP_UI_COMPONENTS;
     	return view('modules-assistant::index', $this->data);
     }
+
+
+    /**
+     * @param Request $request
+     * @param array  $params
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function commandAssistant(Request $request, array $params = []) {
+
+        $response = [
+            "status" => false,
+            "message" => ""
+        ];
+
+        $command = isset($params["command"]) && !empty($params["command"]) ? $params["command"] : $request->query('name', null);
+
+        if (empty($command)) {
+            $response["message"] = "Invalid Command";
+        }
+
+        $arguments = isset($params["argument"]) && !empty($params["argument"]) ? $params["argument"] : [];
+
+        $exitCode = Artisan::call($command, $arguments);
+        
+        if ($exitCode === 0) {
+            $response["status"] = true;
+            $response["message"] = "Command successfully executed";
+        } else {
+            $response["message"] = "Command encountered an error";
+        }
+
+    }
+
 
     /**
      * @param Request $request

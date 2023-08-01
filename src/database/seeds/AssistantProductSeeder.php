@@ -28,6 +28,8 @@ class AssistantProductSeeder extends Seeder
     {
         //php artisan db:seed --force --class=AssistantProductSeeder
 
+        // Expect / Design idempotently for multiple runs
+
         $config = config('modules-assistant-seeder.seeders.seeds.products', []);
 
         if (empty($config)) {
