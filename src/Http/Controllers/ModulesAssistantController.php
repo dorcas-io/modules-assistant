@@ -64,7 +64,7 @@ class ModulesAssistantController extends Controller {
         $arguments = isset($params["argument"]) && !empty($params["argument"]) ? $params["argument"] : [];
 
         $exitCode = Artisan::call($command, $arguments);
-        
+
         if ($exitCode === 0) {
             $response["status"] = true;
             $response["message"] = "Command successfully executed";
@@ -94,8 +94,8 @@ class ModulesAssistantController extends Controller {
         switch ($module) {
             case 'dashboard':
                 $this->data['header_message']['message'] = '<strong>Welcome to Dorcas Hub Dashboard</strong>. It contains vital statistics about your business operations as well as quick shortcuts to other functions';
-                $pageinfo["docs_tag"] = "overview";
-                $pageinfo["docs_type"] = "page";
+                $pageinfo["docs_tag"] = "dashboard-module";
+                $pageinfo["docs_type"] = "chapter";
                 $pageinfo["video"] = "https://www.youtube.com/embed/Ge2Q-XWKdk8";
                 break;
             case 'mcu':
@@ -159,7 +159,7 @@ class ModulesAssistantController extends Controller {
                 $pageinfo["docs_type"] = "chapter";
                 break;
             case 'mse':
-                $pageinfo["docs_tag"] = "";
+                $pageinfo["docs_tag"] = "settings-module";
                 $pageinfo["docs_type"] = "chapter";
                 $this->data['header_message']['message'] = $page_info ? 'You are currently on the <strong>'.$pageinfo["title"].'</strong> of the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>! '. $pageinfo["description"] : 'You are currently on the <strong>'.config('modules-settings.title', 'Settings').' Module</strong>!';
                 break;
@@ -501,7 +501,7 @@ class ModulesAssistantController extends Controller {
             try {
                 // Lets use the new format
                 $base_url = "http://docs.hostville.ng";
-                $book = "dorcas-ecommerce-suite";
+                $book = "ecommerce-suite";
                 $chapter = $doc_type; // "customers-module";
                 $docs_url = "$base_url/books/$book/$chapter/$tag";
                 $client = new \GuzzleHttp\Client();

@@ -16,7 +16,25 @@ use Faker\Factory as Faker;
 class AssistantProductSeeder extends Seeder
 {
 
-    const BRANDS = [];
+    const BRANDS = [
+        'SQNY',
+        'GG',
+        'TESHOBA'
+    ];
+
+    const PRODUCTS_SIZE = [
+        'TV' => [
+            '24-Inch',
+            '32-Inch',
+            '50-Inch'
+        ],
+        'Dish Washer' => [
+            '5 KG',
+            '8 KG',
+            '10 KG'
+        ],
+    ];
+
 
     /**
      * Run the database seeds.
@@ -93,10 +111,18 @@ class AssistantProductSeeder extends Seeder
                 //$image = $faker->imageUrl(360, 360, 'electronics', true, 'cats');
                 $image = null;
 
+                $label_brand = collect(self::BRANDS)->random();
+
+                $product_size = collect(self::PRODUCTS_SIZE)->random();
+                $label_product = collect(self::PRODUCTS_SIZE)->search($product_size);
+                $label_size = collect($product_size)->random();
+
+
                 $product_id = $db->table("products")->insertGetId([
                     'uuid' => (string) \Illuminate\Support\Str::uuid(),
                     'company_id' => $company_id,
-                    'name' => "Sample Product " . $products->count() + $i + 1,
+                    //'name' => "Sample Product " . $products->count() + $i + 1,
+                    'name' => $label_brand . " " . $label_size . " " . $label_product,
                     'description' => "Sample Description",
                     'product_type' => 'default',
                     'unit_price' => $amount,
