@@ -55,22 +55,28 @@ class ModulesAssistantController extends Controller {
             "message" => ""
         ];
 
-        $command = isset($params["command"]) && !empty($params["command"]) ? $params["command"] : $request->query('name', null);
+        $command = isset($params["command"]) && !empty($params["command"]) ? $params["command"] : $request->query('command', null);
 
         if (empty($command)) {
+
             $response["message"] = "Invalid Command";
-        }
-
-        $arguments = isset($params["argument"]) && !empty($params["argument"]) ? $params["argument"] : [];
-
-        $exitCode = Artisan::call($command, $arguments);
-
-        if ($exitCode === 0) {
-            $response["status"] = true;
-            $response["message"] = "Command successfully executed";
+            
         } else {
-            $response["message"] = "Command encountered an error";
+
+            $arguments = isset($params["arguments"]) && !empty($params["arguments"]) ? $params["arguments"] : [];
+
+            $exitCode = Artisan::call($command, $arguments);
+    
+            if ($exitCode === 0) {
+                $response["status"] = true;
+                $response["message"] = "Command successfully executed";
+            } else {
+                $response["message"] = "Command encountered an error";
+            }
+
         }
+
+        return $response;
 
     }
 
